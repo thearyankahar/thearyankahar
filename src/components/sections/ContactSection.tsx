@@ -34,186 +34,188 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#222226]">
-      {/* Header */}
-      <div className="mb-12">
-        <div className="flex items-center gap-2 font-mono text-xs text-[#8E8E93] uppercase tracking-widest mb-2">
-          <span>04 / CONNECT</span>
-          <span className="text-[#333]">•</span>
-          <span>COMMUNICATION</span>
-        </div>
-        <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
-          Direct Inquiries & Opportunities
-        </h2>
-        <p className="mt-2 text-xs sm:text-sm text-[#8E8E93] max-w-2xl leading-relaxed">
-          Open to full-stack developer roles, engineering internships, and software development engagements.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Direct Communication Channels */}
-        <div className="lg:col-span-5 space-y-3.5">
-          {/* Email Card */}
-          <div className="p-5 rounded-xl bg-[#131316] border border-[#222226] flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
-              <div className="w-9 h-9 rounded-lg bg-[#18181D] border border-[#27272C] flex items-center justify-center text-[#2DD4BF]">
-                <Mail className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-[#666] uppercase">EMAIL</span>
-                <div className="text-[#EDEAE2] font-mono text-sm font-medium">
-                  {PERSONAL_INFO.contact.email}
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => handleCopy(PERSONAL_INFO.contact.email, 'email')}
-              className="p-1.5 rounded-md bg-[#18181E] border border-[#28282E] text-[#8E8E93] hover:text-white transition-colors cursor-pointer"
-              title="Copy Email"
-            >
-              {copied === 'email' ? <Check className="w-3.5 h-3.5 text-[#2DD4BF]" /> : <Copy className="w-3.5 h-3.5" />}
-            </button>
+    <div className="w-full relative z-20 py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <section id="contact" className="max-w-7xl mx-auto scroll-mt-14 bg-[#151515]/85 backdrop-blur-md border border-[#303030] p-6 sm:p-12 lg:p-16">
+        {/* Section Header */}
+        <div className="mb-12 border-b border-[#303030] pb-8">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#929292] uppercase tracking-widest mb-3">
+            <span className="text-[#35D6C0]">05 / CONNECT</span>
+            <span className="text-[#404040]">•</span>
+            <span>COMMUNICATION</span>
           </div>
-
-          {/* Phone Card */}
-          <div className="p-5 rounded-xl bg-[#131316] border border-[#222226] flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
-              <div className="w-9 h-9 rounded-lg bg-[#18181D] border border-[#27272C] flex items-center justify-center text-[#2DD4BF]">
-                <Phone className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="text-[10px] font-mono text-[#666] uppercase">PHONE</span>
-                <div className="text-[#EDEAE2] font-mono text-sm font-medium">
-                  {PERSONAL_INFO.contact.phone}
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => handleCopy(PERSONAL_INFO.contact.phone, 'phone')}
-              className="p-1.5 rounded-md bg-[#18181E] border border-[#28282E] text-[#8E8E93] hover:text-white transition-colors cursor-pointer"
-              title="Copy Phone"
-            >
-              {copied === 'phone' ? <Check className="w-3.5 h-3.5 text-[#2DD4BF]" /> : <Copy className="w-3.5 h-3.5" />}
-            </button>
-          </div>
-
-          {/* Social Links Row */}
-          <div className="grid grid-cols-2 gap-3">
-            <a
-              href={PERSONAL_INFO.contact.github}
-              target="_blank"
-              rel="noreferrer"
-              className="p-3.5 rounded-xl bg-[#131316] border border-[#222226] hover:border-[#383842] transition-colors flex items-center justify-between group"
-            >
-              <div className="flex items-center gap-2.5">
-                <GithubIcon className="w-4 h-4 text-white" />
-                <span className="font-mono text-xs text-[#EDEAE2]">GitHub</span>
-              </div>
-              <ExternalLink className="w-3 h-3 text-[#666] group-hover:text-[#2DD4BF] transition-colors" />
-            </a>
-
-            <a
-              href={PERSONAL_INFO.contact.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="p-3.5 rounded-xl bg-[#131316] border border-[#222226] hover:border-[#383842] transition-colors flex items-center justify-between group"
-            >
-              <div className="flex items-center gap-2.5">
-                <LinkedinIcon className="w-4 h-4 text-[#2DD4BF]" />
-                <span className="font-mono text-xs text-[#EDEAE2]">LinkedIn</span>
-              </div>
-              <ExternalLink className="w-3 h-3 text-[#666] group-hover:text-[#2DD4BF] transition-colors" />
-            </a>
-          </div>
-
-          <div className="p-3.5 rounded-xl bg-[#111114] border border-[#1E1E22] font-mono text-xs text-[#8E8E93]">
-            <span className="text-[#8E8E93] block text-[10px] uppercase mb-0.5">AVAILABILITY:</span>
-            <span>Immediate start for full-stack engineering roles in Pune, hybrid, or remote.</span>
-          </div>
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-[#F2F0EB] tracking-tight uppercase">
+            Direct Inquiries & Opportunities
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-[#929292] max-w-2xl leading-relaxed">
+            Open to full-stack developer roles, engineering engagements, and collaborative software projects.
+          </p>
         </div>
 
-        {/* Right Column: Direct Message Form */}
-        <div className="lg:col-span-7">
-          <form
-            onSubmit={handleSubmit}
-            className="p-6 sm:p-7 rounded-xl bg-[#131316] border border-[#222226] space-y-3.5"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left Column: Direct Communication Channels */}
+          <div className="lg:col-span-5 space-y-4">
+            {/* Email Card */}
+            <div className="p-5 bg-[#0A0A0A] border border-[#303030] flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-[#151515] border border-[#303030] flex items-center justify-center text-[#35D6C0]">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-[#929292] uppercase block">EMAIL</span>
+                  <div className="text-[#F2F0EB] font-mono text-xs sm:text-sm font-semibold">
+                    {PERSONAL_INFO.contact.email}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => handleCopy(PERSONAL_INFO.contact.email, 'email')}
+                className="p-2 bg-[#151515] border border-[#303030] text-[#929292] hover:text-[#F2F0EB] hover:border-[#444] transition-colors cursor-pointer"
+                title="Copy Email"
+              >
+                {copied === 'email' ? <Check className="w-3.5 h-3.5 text-[#35D6C0]" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
+            {/* Phone Card */}
+            <div className="p-5 bg-[#0A0A0A] border border-[#303030] flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-[#151515] border border-[#303030] flex items-center justify-center text-[#35D6C0]">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-[#929292] uppercase block">PHONE</span>
+                  <div className="text-[#F2F0EB] font-mono text-xs sm:text-sm font-semibold">
+                    {PERSONAL_INFO.contact.phone}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => handleCopy(PERSONAL_INFO.contact.phone, 'phone')}
+                className="p-2 bg-[#151515] border border-[#303030] text-[#929292] hover:text-[#F2F0EB] hover:border-[#444] transition-colors cursor-pointer"
+                title="Copy Phone"
+              >
+                {copied === 'phone' ? <Check className="w-3.5 h-3.5 text-[#35D6C0]" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
+            {/* Social Links Row */}
+            <div className="grid grid-cols-2 gap-4">
+              <a
+                href={PERSONAL_INFO.contact.github}
+                target="_blank"
+                rel="noreferrer"
+                className="p-4 bg-[#0A0A0A] border border-[#303030] hover:border-[#35D6C0]/60 transition-colors flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-3">
+                  <GithubIcon className="w-4 h-4 text-[#F2F0EB]" />
+                  <span className="font-mono text-xs text-[#F2F0EB]">GitHub</span>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 text-[#929292] group-hover:text-[#35D6C0] transition-colors" />
+              </a>
+
+              <a
+                href={PERSONAL_INFO.contact.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="p-4 bg-[#0A0A0A] border border-[#303030] hover:border-[#35D6C0]/60 transition-colors flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-3">
+                  <LinkedinIcon className="w-4 h-4 text-[#35D6C0]" />
+                  <span className="font-mono text-xs text-[#F2F0EB]">LinkedIn</span>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 text-[#929292] group-hover:text-[#35D6C0] transition-colors" />
+              </a>
+            </div>
+
+            <div className="p-4 bg-[#0A0A0A] border border-[#303030] font-mono text-xs text-[#929292]">
+              <span className="text-[#35D6C0] block text-[10px] uppercase mb-1 font-semibold">AVAILABILITY:</span>
+              <span>Immediate start for full-stack engineering roles in Pune, hybrid, or remote.</span>
+            </div>
+          </div>
+
+          {/* Right Column: Direct Message Form */}
+          <div className="lg:col-span-7">
+            <form
+              onSubmit={handleSubmit}
+              className="p-6 sm:p-8 bg-[#0A0A0A] border border-[#303030] space-y-4"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] font-mono text-[#929292] uppercase mb-1.5">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="e.g. Alex Mercer"
+                    className="w-full px-4 py-2.5 bg-[#151515] border border-[#303030] focus:border-[#35D6C0] text-[#F2F0EB] text-xs outline-none transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-mono text-[#929292] uppercase mb-1.5">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="alex@company.com"
+                    className="w-full px-4 py-2.5 bg-[#151515] border border-[#303030] focus:border-[#35D6C0] text-[#F2F0EB] text-xs outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
               <div>
-                <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
-                  Your Name
+                <label className="block text-[11px] font-mono text-[#929292] uppercase mb-1.5">
+                  Subject
                 </label>
                 <input
                   type="text"
                   required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g. Alex Mercer"
-                  className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  placeholder="Full-Stack Engineering Role / Discussion"
+                  className="w-full px-4 py-2.5 bg-[#151515] border border-[#303030] focus:border-[#35D6C0] text-[#F2F0EB] text-xs outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
-                  Email Address
+                <label className="block text-[11px] font-mono text-[#929292] uppercase mb-1.5">
+                  Message
                 </label>
-                <input
-                  type="email"
+                <textarea
+                  rows={4}
                   required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="alex@company.com"
-                  className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Briefly describe your team, role scope, or project..."
+                  className="w-full px-4 py-2.5 bg-[#151515] border border-[#303030] focus:border-[#35D6C0] text-[#F2F0EB] text-xs outline-none transition-colors resize-none"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
-                Subject
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.subject}
-                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                placeholder="Full-Stack Engineering Role / Discussion"
-                className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors"
-              />
-            </div>
+              <button
+                type="submit"
+                className="w-full py-3 px-6 bg-[#35D6C0] hover:bg-[#28BFAC] text-[#0A0A0A] font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>SEND INQUIRY</span>
+              </button>
 
-            <div>
-              <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
-                Message
-              </label>
-              <textarea
-                rows={4}
-                required
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Briefly describe your team, role scope, or project..."
-                className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors resize-none"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-2.5 px-5 rounded-lg bg-[#2DD4BF] hover:bg-[#28BFAC] text-black font-semibold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>SEND INQUIRY</span>
-            </button>
-
-            {submitted && (
-              <div className="p-2.5 rounded bg-[#18181E] border border-[#28282E] text-[#2DD4BF] text-xs text-center font-mono">
-                Draft prepared. Opening your mail client to transmit to thearyankahar@gmail.com.
-              </div>
-            )}
-          </form>
+              {submitted && (
+                <div className="p-3 bg-[#151515] border border-[#303030] text-[#35D6C0] text-xs text-center font-mono">
+                  Draft prepared. Opening your mail client to transmit to thearyankahar@gmail.com.
+                </div>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };

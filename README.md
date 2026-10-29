@@ -1,6 +1,6 @@
-# ARYAN KAHAR — Unified Editorial & 3D Spatial Developer Portfolio
+# ARYAN KAHAR — Full-Stack Developer Portfolio
 
-> An experimental monochrome editorial Artboard seamlessly unified with an interactive 3D WebGL spatial environment, presenting verified engineering case studies, real software architectures, and clean technical foundations for **Aryan Shyamlal Kahar**.
+> Personal developer portfolio and project case studies for Aryan Shyamlal Kahar, Full-Stack Web Developer based in Pune, India. Built with React 19, TypeScript, Vite, React Three Fiber, Three.js, and Tailwind CSS.
 
 [![React](https://img.shields.io/badge/React-19.3-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-7.0-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org)
@@ -11,74 +11,63 @@
 
 ---
 
-## 1. Unified Architecture & Creative Direction
+## 1. Design System & Interaction Model
 
-The portfolio unifies two visual references into **one continuous interaction system**:
+### A. Strict Monochromatic & Restrained Palette
+* **Near-black:** `#0A0A0A` (Deep background canvas)
+* **Charcoal:** `#151515` (Primary panels, modules, and surfaces)
+* **Secondary Charcoal:** `#202020` (Pills, badges, and contrast elements)
+* **Warm White:** `#F2F0EB` (Headings and high-contrast typography)
+* **Muted Gray:** `#929292` (Subtext, captions, and secondary metadata)
+* **Hairline Borders:** `#303030` (Structural grid dividers and module framing)
+* **Restrained Teal:** `#35D6C0` (Single accent reserved strictly for active navigation states, link indicators, and subtle hover cues)
 
-### A. Integrated Artboard & Spatial Viewport
-* **Palette:** Deep near-black (`#0F0F11`), charcoal canvas (`#141417`), warm white (`#EDEAE2`), and muted gray (`#8E8E93`), accented by a single restrained teal (`#2DD4BF`) and occasional warm amber (`#E5A93C`).
-* **Visual Language:** Asymmetric editorial panel composition, fine dividing borders (`#27272A`), cropped oversized typography (`Syne`), and monospace metadata (`JetBrains Mono`).
-* **Persistent 3D Viewport:** Rather than acting as a separate demo page, the WebGL 3D spatial scene is embedded directly inside the Artboard entrance as an interactive live viewport, and can be expanded into full-screen exploration seamlessly without reloading the WebGL context.
-* **Accessible Foundation:** The conventional project archive, about statement, technical capabilities matrix, and direct communication channels are always accessible directly via standard HTML.
+### B. Project Archive & Dual-View Presentation
+* **Typographic List View (Default):** Clean, spacious rows featuring project index (`01`–`05`), title, concise summary, category, and direct case study drawer trigger.
+* **Image View (Toggleable):** Editorial 2-column cards displaying high-contrast grayscale interface screenshots.
+* **Category Filter Pills:** Filter by `All Projects`, `Fintech & SaaS`, `Systems & Operations`, `Applied ML & Vision`, and `Prototypes`.
 
-### B. Custom 3D Architectural Monuments (Replacing Generic Boxes)
-Each verified software project features a distinct, custom architectural monument:
-1. **Dixit Lending Solution:** A monolithic brutalist financial vault with cantilevered graphite slabs, recessed illuminated teal channels, and dual interlocking counter-rotating calibration rings.
-2. **Smart Curriculum Attendance:** An open architectural academic lattice with structural pillars, horizontal timetable trays, and a floating rotating 3D wireframe scheduling matrix.
-3. **Livestock Breed Recognition:** A stepped cylindrical contour scanner pedestal reflecting OpenCV contour analysis, topped with an optical vision scanner prism.
-4. **Online Movie Ticket Booking:** A tiered cinema amphitheater with a vertical rear projection pylon, horizontal cinema slit, and rotating anamorphic aperture ring.
-5. **CLN AI Loan Calling System (Prototype):** A brutalist telecom transmission tower with acoustic baffling fins, radial GSM antenna blades, and a pulsating radio wave transmitter ring.
+### C. 3D Architectural Scene (WebGL)
+* Features a minimalist exhibition environment with monolithic walls, structural ceiling portals, recessed linear downlights, dark matte floor, and a perspective floor datum line.
+* **Camera Movement:** Transitions along the corridor synchronized with section navigation (`intro`, `work`, `about`, `skills`, `certifications`, `contact`) with subtle pointer parallax.
 
 ---
 
-## 2. Verified Project Repository
+## 2. Project Repository
 
-*Note: `CLN Lending Suite` and `Dixit Lending Solution` are consolidated as one real project: **Dixit Lending Solution**.*
-
-| # | Project | Stack | Category & Status | Verified Implementation Highlights |
+| # | Project | Stack | Category | Implementation Highlights |
 | :---: | :--- | :--- | :--- | :--- |
-| **01** | **Dixit Lending Solution** | Node.js, Express, Next.js, MySQL, AWS SDK (S3/R2), Baileys WhatsApp, XLSX | Fintech / Operations CRM & Web Platform (Commercial Platform) | Operational CRM backend (CLN) with role-based Admin & Employee portals, loan origination, S3/R2 document vaulting, field attendance logs, Baileys WhatsApp transactional receipts, and Next.js customer origination portal with dynamic client-side EMI calculator. |
-| **02** | **Smart Curriculum Attendance** | React, TypeScript, Vite, Firebase Auth, Cloud Firestore | EdTech / Operations Platform (Web Application) | Lecture timetable scheduler, student and faculty role dashboards, attendance marking, and real-time Firestore ledger. |
-| **03** | **Livestock Breed Recognition** | Python, Flask, Hugging Face API, OpenCV, NumPy | Applied ML / Computer Vision (Machine Learning Service) | Cattle/buffalo breed prediction from uploads, OpenCV contour-based morphological measurement fallback, and agricultural climate/breeding trait tagging. |
-| **04** | **Online Movie Ticket Booking** | Node.js, Express, MongoDB, Mongoose, AngularJS, Bootstrap | Web Application / Reservation Engine (Web Application) | Modular RESTful CRUD controllers (`movie-crud`, `theatre-crud`, `showtime-crud`, `bookings-crud`), cinema seat selection, and customer reservation logs. |
-| **05** | **CLN AI Loan Calling System** | Node.js, Express, React, Vite, MySQL 8.0, Redis, Gammu SMSD | Outbound Telephony (Concept & Working Prototype) | Architectural design & developer prototype: USB GSM modem control via Gammu serial AT-commands, SIM rotation algorithms, Redis campaign queues, and audio handoff to OpenAI API. *(Clearly marked as prototype)*. |
+| **01** | **Dixit Lending Solution** | Node.js, Express, Next.js, MySQL, AWS SDK (S3/R2), Baileys WhatsApp, XLSX | Fintech / Operations | Operational CRM backend (CLN) with role-based Admin & Employee portals, loan origination, S3/R2 document vaulting, field attendance logs, Baileys WhatsApp transactional receipts, and customer origination portal with dynamic client-side EMI calculator. |
+| **02** | **CommodityChain** | Next.js 14, TypeScript, FastAPI, WebSockets, Twelve Data, D3.js | Data Intelligence | Real-time commodity intelligence platform tracking eight global markets with live WebSocket price streaming, 30-day Pearson correlation heatmap, India fuel shock simulation, and Groq Llama 3.3 70B analysis. |
+| **03** | **FitoGlobe** | React, TypeScript, FastAPI, PostgreSQL, Prisma, Tailwind CSS | Health & Nutrition SaaS | Full-stack multilingual SaaS supporting 4 languages with workout logs, AI macro calculator, food vision analysis, Google OAuth, and normalized PostgreSQL schema. |
+| **04** | **Smart Curriculum Attendance** | React, TypeScript, Vite, Firebase Auth, Cloud Firestore | EdTech / Operations Platform | Lecture timetable scheduler, student and faculty role dashboards, attendance marking, and real-time Firestore ledger. |
+| **05** | **Livestock Breed Recognition** | Python, Flask, Hugging Face API, OpenCV, NumPy | Applied ML / Computer Vision | Cattle/buffalo breed prediction from uploads, OpenCV contour-based morphological measurement fallback, and agricultural climate/breeding trait tagging. |
+| **06** | **Animal Welfare Inspection** | Python, Flask, OpenCV, NumPy, Matplotlib | Computer Vision / NGO Tooling | Field inspection image processing with automated morphological scoring and automated PDF report compilation. |
+| **07** | **Online Movie Ticket Booking** | Node.js, Express, MongoDB, Mongoose, AngularJS, Bootstrap | Web Application | Modular RESTful CRUD controllers (`movie-crud`, `theatre-crud`, `showtime-crud`, `bookings-crud`), cinema seat selection, and customer reservation logs. |
+| **08** | **CLN AI Loan Calling System** | Node.js, Express, React, Vite, MySQL 8.0, Redis, Gammu SMSD | Telephony Prototype | Architectural design & developer prototype: USB GSM modem control via Gammu serial AT-commands, SIM rotation algorithms, Redis campaign queues, and audio handoff to OpenAI API. |
 
 ---
 
-## 3. Project Assets & Purpose
+## 3. Industry Certifications
 
-| Asset | Type | Purpose |
-| :--- | :--- | :--- |
-| `fintech_ledger_monochrome.jpg` | Generated Art | Minimalist architectural graphite composition representing ledger data architecture for Dixit Lending Solution. |
-| `telephony_waveform_monochrome.jpg` | Generated Art | Abstract brutalist telecom monument and wave ripples representing GSM telephony for CLN AI Loan Calling. |
-| `curriculum_matrix_monochrome.jpg` | Generated Art | Abstract structural timetable matrix representing modular scheduling for Smart Curriculum Attendance. |
-| `cln-profile-banner.png` | Real Screenshot | Verified operational interface banner from the CLN CRM backend. |
-| `Dixit Lending Solution Logo.png` | Real Brand Asset | Authentic logo for Dixit Lending Solution. |
-| `breed-sample-murrah.jpg` | Real Image | Murrah buffalo sample from the actual Breed Recognition test dataset. |
+1. **HackerRank — SQL (Advanced):** Relational database optimization, query performance tuning, index structuring, ACID transactions, and normalization.
+2. **Deloitte — Data Analytics Job Simulation:** Enterprise dataset analysis, statistical modeling, data quality checks, and executive dashboard presentation.
+3. **AWS Academy — Cloud Computing 101:** IAM security boundaries, EC2 compute virtualization, S3 object storage policies, VPC networking, and cloud high-availability design.
 
 ---
 
-## 4. Local Run & Production Build
+## 4. Local Development & Build
 
-### Install Dependencies
 ```bash
+# Install dependencies
 npm install
-```
 
-### Run Linter
-```bash
-npm run lint
-```
-*Expected: 0 warnings, 0 errors.*
+# Start Vite development server
+npm run dev
 
-### Build for Production
-```bash
+# Code quality check
+npx oxlint
+
+# Production build verification
 npm run build
 ```
-*Compiled output in `dist/` with code-split Three.js bundle (initial bundle: ~89 kB gzip).*
-
-### Run Development Server
-```bash
-npm run dev -- --port 5174
-```
-Access at [http://localhost:5174](http://localhost:5174).
