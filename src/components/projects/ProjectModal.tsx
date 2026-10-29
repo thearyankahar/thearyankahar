@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Server, CheckCircle2, AlertTriangle, Layers, Cpu } from 'lucide-react';
+import { X, Server, CheckCircle2, AlertTriangle, Layers, Cpu, Compass } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { Project } from '../../types';
 import { sound } from '../../utils/audio';
@@ -66,6 +66,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Modal Scrollable Body */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-7 text-[#EDEAE2]">
           
+          {/* Visual Banner Preview (if available) */}
+          {project.bannerImage && (
+            <div className="relative h-44 rounded-xl overflow-hidden border border-[#27272A] bg-black/40">
+              <img
+                src={project.bannerImage}
+                alt={project.title}
+                className="w-full h-full object-cover object-top grayscale contrast-110 opacity-75"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#141417] via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-4 font-mono text-[10px] text-[#2DD4BF] bg-black/80 px-2 py-0.5 rounded border border-[#222]">
+                VERIFIED INTERFACE EVIDENCE
+              </div>
+            </div>
+          )}
+
           {/* Main Title & Tagline */}
           <div>
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-white">
@@ -87,26 +102,38 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <strong className="text-white block font-mono uppercase text-[10px] mb-0.5">
                   Concept & Working Developer Prototype Notice
                 </strong>
-                This system represents an architectural specification and functional developer prototype testing local multi-channel USB GSM modem AT-commands. It distinguishes hardware driver prototyping from high-volume production cloud telephony scale.
+                This system represents an architectural design specification and functional developer prototype testing serial AT-commands on USB GSM modems. It distinguishes hardware driver prototyping from high-volume production cloud telephony scale.
               </div>
             </div>
           )}
 
-          {/* Technical Summary */}
-          <div>
-            <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-2">
-              System Overview & Purpose
-            </h3>
-            <p className="text-sm text-[#B4B1A8] leading-relaxed">
-              {project.summary}
-            </p>
+          {/* Problem Statement & Intended Purpose */}
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Compass className="w-3.5 h-3.5 text-[#2DD4BF]" />
+                <span>The Problem & Intended Purpose</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-[#B4B1A8] leading-relaxed">
+                {project.problemStatement}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-[#2DD4BF]" />
+                <span>My Direct Contribution</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-[#B4B1A8] leading-relaxed">
+                {project.myContribution}
+              </p>
+            </div>
           </div>
 
           {/* Core Modules Implemented */}
           <div>
-            <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-3 flex items-center gap-2">
-              <Cpu className="w-3.5 h-3.5 text-[#2DD4BF]" />
-              <span>Implemented Core Modules</span>
+            <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-3">
+              Implemented Core Modules
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#9E9E99]">
               {project.coreModules.map((module, idx) => (
@@ -118,11 +145,32 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </div>
           </div>
 
-          {/* Engineering Decisions */}
+          {/* System Data Flow (if available) */}
+          {project.systemFlow && project.systemFlow.length > 0 && (
+            <div>
+              <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-2.5 flex items-center gap-2">
+                <Layers className="w-3.5 h-3.5 text-[#2DD4BF]" />
+                <span>System Architecture & Data Flow</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 font-mono text-xs">
+                {project.systemFlow.map((step, idx) => (
+                  <div key={idx} className="p-3 rounded-lg bg-[#111114] border border-[#202024] flex flex-col justify-between">
+                    <div>
+                      <span className="text-[10px] text-[#666] font-bold">{step.step}</span>
+                      <div className="text-xs font-semibold text-[#EDEAE2] mt-0.5">{step.label}</div>
+                    </div>
+                    <p className="text-[11px] text-[#8E8E93] mt-2 leading-tight">{step.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Engineering Decisions & Challenges */}
           <div>
             <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-3 flex items-center gap-2">
               <Server className="w-3.5 h-3.5 text-[#2DD4BF]" />
-              <span>Engineering Decisions & Implementation Notes</span>
+              <span>Engineering Decisions & Technical Implementation</span>
             </h3>
             <ul className="space-y-2 text-xs sm:text-sm text-[#B4B1A8]">
               {project.engineeringDecisions.map((decision, idx) => (
@@ -134,28 +182,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </ul>
           </div>
 
-          {/* Technical Notes (if present) */}
-          {project.technicalNotes && project.technicalNotes.length > 0 && (
-            <div>
-              <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-2 flex items-center gap-2">
-                <Layers className="w-3.5 h-3.5 text-[#8E8E93]" />
-                <span>Verified Architecture Notes</span>
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-xs">
-                {project.technicalNotes.map((note, i) => (
-                  <div key={i} className="p-3 rounded-lg bg-[#111114] border border-[#202024]">
-                    <div className="text-[10px] text-[#666] uppercase">{note.label}</div>
-                    <div className="text-xs text-[#B4B1A8] mt-1 leading-snug">{note.detail}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Verified Technologies Used */}
           <div>
             <h3 className="font-mono text-xs uppercase text-[#8E8E93] tracking-wider mb-2">
-              Verified Technologies
+              Verified Technologies Used
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {project.technologies.map((tech) => (
@@ -174,7 +204,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Modal Footer with Actions */}
         <div className="p-4 sm:p-5 border-t border-[#222226] bg-[#16161A] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
           <div className="text-[#666663] text-[11px]">
-            Developer: Aryan Shyamlal Kahar · Verified Source Code
+            Developer: Aryan Shyamlal Kahar · Verified Codebase
           </div>
 
           <div className="flex items-center gap-3">

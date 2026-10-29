@@ -11,69 +11,103 @@ import { Project } from './types';
 import { sound } from './utils/audio';
 import { Box } from 'lucide-react';
 
-// Lazy-load Three.js 3D spatial scene for fast initial render
+// Unified 3D Spatial Scene
 const SpatialScene = lazy(() =>
   import('./components/three/SpatialScene').then((m) => ({ default: m.SpatialScene }))
 );
 
 export function App() {
-  const [currentView, setCurrentView] = useState<'artboard' | '3d'>('artboard');
+  const [spatialMode, setSpatialMode] = useState<'integrated' | 'immersive'>('integrated');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   // Keyboard accessibility
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!selectedProject && (e.key === 'm' || e.key === 'M')) {
+      if (selectedProject) return;
+
+      if (e.key === 'm' || e.key === 'M') {
         sound.playClick();
-        setCurrentView((prev) => (prev === 'artboard' ? '3d' : 'artboard'));
+        setSpatialMode((prev) => (prev === 'integrated' ? 'immersive' : 'integrated'));
+      }
+      if (e.key === 'Escape' && spatialMode === 'immersive') {
+        sound.playClick();
+        setSpatialMode('integrated');
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProject]);
+  }, [selectedProject, spatialMode]);
 
   const handleNavigateSection = (sectionId: string) => {
     sound.playClick();
-    if (currentView === '3d') {
-      setCurrentView('artboard');
-      setTimeout(() => {
-        if (sectionId === 'top') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          const el = document.getElementById(sectionId);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
+    if (spatialMode === 'immersive') {
+      setSpatialMode('integrated');
+    }
+    setTimeout(() => {
       if (sectionId === 'top') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         const el = document.getElementById(sectionId);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }
-    }
+    }, 120);
   };
 
   return (
     <div className="min-h-screen bg-[#0F0F11] text-[#EDEAE2] selection:bg-[#2DD4BF] selection:text-black">
-      {/* Top Editorial Navbar */}
+      {/* Top Editorial Navbar (Available at all times) */}
       <Navbar
-        currentView={currentView}
-        onViewChange={(view) => setCurrentView(view)}
+        currentView={spatialMode === 'immersive' ? '3d' : 'artboard'}
+        onViewChange={(view) => setSpatialMode(view === '3d' ? 'immersive' : 'integrated')}
         onNavigateSection={handleNavigateSection}
       />
 
-      {/* Main Viewport */}
-      {currentView === 'artboard' ? (
-        <main className="transition-opacity duration-300 animate-in fade-in">
-          {/* Editorial Artboard Canvas (Reference A) */}
+      {/* Main Experience Layout */}
+      {spatialMode === 'immersive' ? (
+        /* Full Immersive 3D Spatial Environment */
+        <main className="fixed inset-0 z-30 w-full h-screen bg-[#08080B] animate-in fade-in duration-300">
+          <Suspense
+            fallback={
+              <div className="w-full h-full flex flex-col items-center justify-center bg-[#08080B] text-[#EDEAE2] font-mono">
+                <Box className="w-8 h-8 text-[#2DD4BF] animate-spin mb-3" />
+                <div className="text-xs tracking-widest text-[#2DD4BF] uppercase">
+                  INITIALIZING SPATIAL SCENE
+                </div>
+              </div>
+            }
+          >
+            <SpatialScene
+              mode="immersive"
+              onToggleMode={setSpatialMode}
+              onSelectProject={(project) => setSelectedProject(project)}
+            />
+          </Suspense>
+        </main>
+      ) : (
+        /* Editorial Artboard Experience with Integrated 3D Spatial Window */
+        <main className="transition-opacity duration-300">
           <ArtboardCanvas
             onSelectProject={(project) => setSelectedProject(project)}
-            onEnter3D={() => setCurrentView('3d')}
+            onEnter3D={() => setSpatialMode('immersive')}
             onOpenArchive={() => handleNavigateSection('work')}
+            children3D={
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center bg-[#08080B] text-[#8E8E93] font-mono text-xs">
+                    Loading 3D Viewport...
+                  </div>
+                }
+              >
+                <SpatialScene
+                  mode="integrated"
+                  onToggleMode={setSpatialMode}
+                  onSelectProject={(project) => setSelectedProject(project)}
+                />
+              </Suspense>
+            }
           />
 
-          {/* Conventional Project Archive */}
+          {/* Conventional Accessible Project Archive */}
           <WorkArchiveSection
             onSelectProject={(project) => setSelectedProject(project)}
           />
@@ -81,40 +115,20 @@ export function App() {
           {/* About Section */}
           <AboutSection />
 
-          {/* Skills & Applied Tech Stack */}
+          {/* Applied Capabilities & Stack */}
           <SkillsSection />
 
-          {/* Contact Section */}
+          {/* Direct Communication Channels */}
           <ContactSection />
 
           {/* Editorial Footer */}
           <Footer
-            onToggle3D={() => setCurrentView('3d')}
+            onToggle3D={() => setSpatialMode('immersive')}
           />
-        </main>
-      ) : (
-        /* Immersive 3D Spatial Environment (Reference B) */
-        <main className="w-full h-screen transition-opacity duration-300 animate-in fade-in">
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex flex-col items-center justify-center bg-[#08080B] text-[#EDEAE2] font-mono">
-                <Box className="w-8 h-8 text-[#2DD4BF] animate-spin mb-3" />
-                <div className="text-xs tracking-widest text-[#2DD4BF] uppercase">
-                  INITIALIZING 3D SPATIAL ENVIRONMENT
-                </div>
-                <div className="text-[11px] text-[#666] mt-1.5">Loading WebGL runtime and architectural geometry...</div>
-              </div>
-            }
-          >
-            <SpatialScene
-              onSelectProject={(project) => setSelectedProject(project)}
-              onExit3D={() => setCurrentView('artboard')}
-            />
-          </Suspense>
         </main>
       )}
 
-      {/* Project Case Study Modal */}
+      {/* Project Case Study Drawer / Modal */}
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

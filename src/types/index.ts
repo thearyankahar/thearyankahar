@@ -17,15 +17,19 @@ export interface Project {
   tagline: string;
   category: string;
   year: string;
-  status: 'Production System' | 'Marketing Web Platform' | 'Web Application' | 'Machine Learning Service' | 'Concept & Working Prototype';
+  status: 'Commercial Platform' | 'Web Application' | 'Machine Learning Service' | 'Concept & Working Prototype';
   isConcept?: boolean;
   technologies: string[];
   summary: string;
+  problemStatement: string;
+  myContribution: string;
   coreModules: string[];
   engineeringDecisions: string[];
   systemFlow?: ProjectFlowStep[];
   technicalNotes?: ProjectTechnicalNote[];
-  accentColor?: string;
+  accentColor: string;
+  image?: string;
+  bannerImage?: string;
   demoUrl?: string;
   githubUrl?: string;
 }

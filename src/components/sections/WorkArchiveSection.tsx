@@ -11,11 +11,11 @@ interface WorkArchiveProps {
 export const WorkArchiveSection: React.FC<WorkArchiveProps> = ({ onSelectProject }) => {
   const [filter, setFilter] = useState<string>('all');
 
-  const categories = ['all', 'Fintech', 'EdTech', 'Machine Learning', 'Concept'];
+  const categories = ['all', 'Fintech', 'EdTech', 'Machine Learning', 'Reservation', 'Prototype'];
 
   const filteredProjects = PROJECTS.filter((p) => {
     if (filter === 'all') return true;
-    if (filter === 'Concept') return p.isConcept;
+    if (filter === 'Prototype') return p.isConcept;
     if (filter === 'Machine Learning') return p.category.includes('ML') || p.category.includes('Vision');
     return p.category.toLowerCase().includes(filter.toLowerCase());
   });
