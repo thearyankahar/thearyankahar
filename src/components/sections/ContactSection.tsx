@@ -24,7 +24,6 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     sound.playSuccess();
-    // Generate mailto link
     const mailto = `mailto:${PERSONAL_INFO.contact.email}?subject=${encodeURIComponent(
       formData.subject || `Inquiry from ${formData.name}`
     )}&body=${encodeURIComponent(
@@ -35,34 +34,34 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#26262B]">
+    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#222226]">
       {/* Header */}
       <div className="mb-12">
-        <div className="flex items-center gap-2 font-mono text-xs text-[#00D9E8] uppercase tracking-widest mb-2">
-          <span>04 / CONNECT & INITIATE</span>
-          <span className="text-[#444]">•</span>
-          <span>DIRECT CONTACT</span>
+        <div className="flex items-center gap-2 font-mono text-xs text-[#8E8E93] uppercase tracking-widest mb-2">
+          <span>04 / CONNECT</span>
+          <span className="text-[#333]">•</span>
+          <span>COMMUNICATION</span>
         </div>
-        <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
-          Let’s Build Something Distinctive
+        <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+          Direct Inquiries & Opportunities
         </h2>
-        <p className="mt-3 text-sm sm:text-base text-[#A6A6A1] max-w-2xl leading-relaxed">
-          Open to full-stack software development roles, engineering internships, and specialized technical projects.
+        <p className="mt-2 text-xs sm:text-sm text-[#8E8E93] max-w-2xl leading-relaxed">
+          Open to full-stack developer roles, engineering internships, and software development engagements.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Direct Communication Channels */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-3.5">
           {/* Email Card */}
-          <div className="p-6 rounded-2xl bg-[#121215] border border-[#24242A] flex items-center justify-between group">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#00D9E8]/10 border border-[#00D9E8]/30 flex items-center justify-center text-[#00D9E8]">
-                <Mail className="w-5 h-5" />
+          <div className="p-5 rounded-xl bg-[#131316] border border-[#222226] flex items-center justify-between">
+            <div className="flex items-center gap-3.5">
+              <div className="w-9 h-9 rounded-lg bg-[#18181D] border border-[#27272C] flex items-center justify-center text-[#2DD4BF]">
+                <Mail className="w-4 h-4" />
               </div>
               <div>
-                <span className="text-[10px] font-mono text-[#777] uppercase">EMAIL</span>
-                <div className="text-white font-mono text-sm sm:text-base font-semibold">
+                <span className="text-[10px] font-mono text-[#666] uppercase">EMAIL</span>
+                <div className="text-[#EDEAE2] font-mono text-sm font-medium">
                   {PERSONAL_INFO.contact.email}
                 </div>
               </div>
@@ -70,22 +69,22 @@ export const ContactSection: React.FC = () => {
 
             <button
               onClick={() => handleCopy(PERSONAL_INFO.contact.email, 'email')}
-              className="p-2 rounded-lg bg-[#18181E] border border-[#333] hover:border-[#666] text-[#A6A6A1] hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-md bg-[#18181E] border border-[#28282E] text-[#8E8E93] hover:text-white transition-colors cursor-pointer"
               title="Copy Email"
             >
-              {copied === 'email' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              {copied === 'email' ? <Check className="w-3.5 h-3.5 text-[#2DD4BF]" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
           </div>
 
           {/* Phone Card */}
-          <div className="p-6 rounded-2xl bg-[#121215] border border-[#24242A] flex items-center justify-between group">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#63E6C1]/10 border border-[#63E6C1]/30 flex items-center justify-center text-[#63E6C1]">
-                <Phone className="w-5 h-5" />
+          <div className="p-5 rounded-xl bg-[#131316] border border-[#222226] flex items-center justify-between">
+            <div className="flex items-center gap-3.5">
+              <div className="w-9 h-9 rounded-lg bg-[#18181D] border border-[#27272C] flex items-center justify-center text-[#2DD4BF]">
+                <Phone className="w-4 h-4" />
               </div>
               <div>
-                <span className="text-[10px] font-mono text-[#777] uppercase">PHONE</span>
-                <div className="text-white font-mono text-sm sm:text-base font-semibold">
+                <span className="text-[10px] font-mono text-[#666] uppercase">PHONE</span>
+                <div className="text-[#EDEAE2] font-mono text-sm font-medium">
                   {PERSONAL_INFO.contact.phone}
                 </div>
               </div>
@@ -93,45 +92,45 @@ export const ContactSection: React.FC = () => {
 
             <button
               onClick={() => handleCopy(PERSONAL_INFO.contact.phone, 'phone')}
-              className="p-2 rounded-lg bg-[#18181E] border border-[#333] hover:border-[#666] text-[#A6A6A1] hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-md bg-[#18181E] border border-[#28282E] text-[#8E8E93] hover:text-white transition-colors cursor-pointer"
               title="Copy Phone"
             >
-              {copied === 'phone' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              {copied === 'phone' ? <Check className="w-3.5 h-3.5 text-[#2DD4BF]" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
           </div>
 
           {/* Social Links Row */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <a
               href={PERSONAL_INFO.contact.github}
               target="_blank"
               rel="noreferrer"
-              className="p-4 rounded-xl bg-[#121215] border border-[#24242A] hover:border-[#00D9E8] transition-colors flex items-center justify-between group"
+              className="p-3.5 rounded-xl bg-[#131316] border border-[#222226] hover:border-[#383842] transition-colors flex items-center justify-between group"
             >
-              <div className="flex items-center gap-3">
-                <GithubIcon className="w-5 h-5 text-white" />
-                <span className="font-mono text-xs text-white">GitHub</span>
+              <div className="flex items-center gap-2.5">
+                <GithubIcon className="w-4 h-4 text-white" />
+                <span className="font-mono text-xs text-[#EDEAE2]">GitHub</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-[#666] group-hover:text-[#00D9E8] transition-colors" />
+              <ExternalLink className="w-3 h-3 text-[#666] group-hover:text-[#2DD4BF] transition-colors" />
             </a>
 
             <a
               href={PERSONAL_INFO.contact.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="p-4 rounded-xl bg-[#121215] border border-[#24242A] hover:border-[#00D9E8] transition-colors flex items-center justify-between group"
+              className="p-3.5 rounded-xl bg-[#131316] border border-[#222226] hover:border-[#383842] transition-colors flex items-center justify-between group"
             >
-              <div className="flex items-center gap-3">
-                <LinkedinIcon className="w-5 h-5 text-[#00D9E8]" />
-                <span className="font-mono text-xs text-white">LinkedIn</span>
+              <div className="flex items-center gap-2.5">
+                <LinkedinIcon className="w-4 h-4 text-[#2DD4BF]" />
+                <span className="font-mono text-xs text-[#EDEAE2]">LinkedIn</span>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-[#666] group-hover:text-[#00D9E8] transition-colors" />
+              <ExternalLink className="w-3 h-3 text-[#666] group-hover:text-[#2DD4BF] transition-colors" />
             </a>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#101012] border border-[#222] font-mono text-xs text-[#888]">
-            <span className="text-[#00D9E8] font-bold block mb-1">AVAILABLE TIMEFRAME:</span>
-            <span>Immediate start for engineering roles in Pune, hybrid, or global remote teams.</span>
+          <div className="p-3.5 rounded-xl bg-[#111114] border border-[#1E1E22] font-mono text-xs text-[#8E8E93]">
+            <span className="text-[#8E8E93] block text-[10px] uppercase mb-0.5">AVAILABILITY:</span>
+            <span>Immediate start for full-stack engineering roles in Pune, hybrid, or remote.</span>
           </div>
         </div>
 
@@ -139,11 +138,11 @@ export const ContactSection: React.FC = () => {
         <div className="lg:col-span-7">
           <form
             onSubmit={handleSubmit}
-            className="p-6 sm:p-8 rounded-2xl bg-[#121215] border border-[#24242A] space-y-4"
+            className="p-6 sm:p-7 rounded-xl bg-[#131316] border border-[#222226] space-y-3.5"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="block text-xs font-mono text-[#888] uppercase mb-1.5">
+                <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
                   Your Name
                 </label>
                 <input
@@ -152,12 +151,12 @@ export const ContactSection: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Alex Mercer"
-                  className="w-full px-4 py-2.5 rounded-lg bg-[#18181E] border border-[#2D2D35] focus:border-[#00D9E8] text-white text-sm outline-none transition-colors"
+                  className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-[#888] uppercase mb-1.5">
+                <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
                   Email Address
                 </label>
                 <input
@@ -166,13 +165,13 @@ export const ContactSection: React.FC = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="alex@company.com"
-                  className="w-full px-4 py-2.5 rounded-lg bg-[#18181E] border border-[#2D2D35] focus:border-[#00D9E8] text-white text-sm outline-none transition-colors"
+                  className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-[#888] uppercase mb-1.5">
+              <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
                 Subject
               </label>
               <input
@@ -180,36 +179,36 @@ export const ContactSection: React.FC = () => {
                 required
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                placeholder="Full-Stack Developer Role / Project Consultation"
-                className="w-full px-4 py-2.5 rounded-lg bg-[#18181E] border border-[#2D2D35] focus:border-[#00D9E8] text-white text-sm outline-none transition-colors"
+                placeholder="Full-Stack Engineering Role / Discussion"
+                className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-[#888] uppercase mb-1.5">
-                Message & Requirements
+              <label className="block text-[11px] font-mono text-[#8E8E93] uppercase mb-1">
+                Message
               </label>
               <textarea
                 rows={4}
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Tell me about the engineering team, role requirements, or system architecture you want to discuss..."
-                className="w-full px-4 py-2.5 rounded-lg bg-[#18181E] border border-[#2D2D35] focus:border-[#00D9E8] text-white text-sm outline-none transition-colors resize-none"
+                placeholder="Briefly describe your team, role scope, or project..."
+                className="w-full px-3.5 py-2 rounded-lg bg-[#18181D] border border-[#25252B] focus:border-[#2DD4BF] text-white text-xs outline-none transition-colors resize-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 px-6 rounded-xl bg-[#00D9E8] hover:bg-[#63E6C1] text-black font-display font-bold text-sm transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,217,232,0.25)]"
+              className="w-full py-2.5 px-5 rounded-lg bg-[#2DD4BF] hover:bg-[#28BFAC] text-black font-semibold text-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
-              <Send className="w-4 h-4" />
-              <span>TRANSMIT DIRECT MESSAGE</span>
+              <Send className="w-3.5 h-3.5" />
+              <span>SEND INQUIRY</span>
             </button>
 
             {submitted && (
-              <div className="p-3 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs text-center font-mono animate-in fade-in">
-                Draft prepared! Opening your mail client to send to thearyankahar@gmail.com.
+              <div className="p-2.5 rounded bg-[#18181E] border border-[#28282E] text-[#2DD4BF] text-xs text-center font-mono">
+                Draft prepared. Opening your mail client to transmit to thearyankahar@gmail.com.
               </div>
             )}
           </form>

@@ -1,93 +1,65 @@
-import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import React from 'react';
 
 export const SpatialEnvironment: React.FC = () => {
-  const ringsRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (ringsRef.current) {
-      ringsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-    }
-  });
-
   return (
     <>
-      {/* Fog for Depth and Atmospheric Mood (Reference B Style) */}
-      <fog attach="fog" args={['#08080B', 10, 45]} />
+      {/* Restrained Depth Fog */}
+      <fog attach="fog" args={['#08080A', 12, 45]} />
 
-      {/* Lighting Scheme */}
-      <ambientLight intensity={0.4} />
+      {/* Ambient & Directional Lighting */}
+      <ambientLight intensity={0.35} />
       
-      {/* Key Directional Light with Shadows */}
       <directionalLight
-        position={[15, 25, 12]}
-        intensity={1.2}
+        position={[14, 22, 12]}
+        intensity={0.9}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-camera-far={60}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-far={50}
+        shadow-camera-left={-18}
+        shadow-camera-right={18}
+        shadow-camera-top={18}
+        shadow-camera-bottom={-18}
         shadow-bias={-0.0001}
       />
 
-      {/* Atmospheric Accent Lights */}
-      <pointLight position={[-12, 10, -5]} color="#00D9E8" intensity={1.5} distance={30} decay={2} />
-      <pointLight position={[18, 14, 5]} color="#63E6C1" intensity={1.5} distance={35} decay={2} />
-      <pointLight position={[5, 18, -12]} color="#F7D447" intensity={1.2} distance={30} decay={2} />
+      {/* Subtle Restrained Accent Lights */}
+      <pointLight position={[-10, 8, -4]} color="#2DD4BF" intensity={0.9} distance={25} decay={2} />
+      <pointLight position={[14, 12, 4]} color="#E5A93C" intensity={0.7} distance={25} decay={2} />
 
-      {/* Dark Reflective Architectural Ground Floor */}
+      {/* Dark Charcoal Ground Floor */}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, -0.01, 0]}
         receiveShadow
       >
-        <planeGeometry args={[120, 120]} />
+        <planeGeometry args={[100, 100]} />
         <meshStandardMaterial
-          color="#060608"
-          roughness={0.18}
-          metalness={0.88}
+          color="#09090C"
+          roughness={0.25}
+          metalness={0.8}
         />
       </mesh>
 
-      {/* Subtle Spatial Grid Lines on Ground */}
+      {/* Subtle Ground Grid */}
       <gridHelper
-        args={[100, 50, '#1E2028', '#101116']}
+        args={[80, 40, '#1E1E24', '#111116']}
         position={[0, 0.01, 0]}
       />
 
-      {/* Floor Neon Glowing Circles (Reference B Signature) */}
+      {/* Restrained Floor Circles */}
       <group position={[-8, 0.02, 4]}>
         <mesh rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[1.2, 1.35, 48]} />
-          <meshBasicMaterial color="#00D9E8" />
+          <ringGeometry args={[1.2, 1.3, 48]} />
+          <meshBasicMaterial color="#2DD4BF" />
         </mesh>
       </group>
 
-      <group position={[14, 0.02, -2]}>
+      <group position={[12, 0.02, -4]}>
         <mesh rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[1.6, 1.75, 48]} />
-          <meshBasicMaterial color="#F7D447" />
+          <ringGeometry args={[1.4, 1.5, 48]} />
+          <meshBasicMaterial color="#E5A93C" />
         </mesh>
-      </group>
-
-      <group position={[2, 0.02, 6]}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.9, 1.02, 36]} />
-          <meshBasicMaterial color="#63E6C1" />
-        </mesh>
-      </group>
-
-      {/* Distant Floating Neon Halo (Reference B Top Sky Element) */}
-      <group ref={ringsRef} position={[0, 16, -10]}>
-        <mesh rotation={[Math.PI / 3, 0, 0]}>
-          <torusGeometry args={[3.2, 0.06, 16, 64]} />
-          <meshBasicMaterial color="#00D9E8" />
-        </mesh>
-        <pointLight color="#00D9E8" intensity={2} distance={15} decay={2} />
       </group>
     </>
   );

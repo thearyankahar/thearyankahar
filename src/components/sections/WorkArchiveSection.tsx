@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Shield, Layers, Filter, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, Filter } from 'lucide-react';
 import { PROJECTS } from '../../data/portfolioData';
 import { Project } from '../../types';
 import { sound } from '../../utils/audio';
@@ -11,29 +11,30 @@ interface WorkArchiveProps {
 export const WorkArchiveSection: React.FC<WorkArchiveProps> = ({ onSelectProject }) => {
   const [filter, setFilter] = useState<string>('all');
 
-  const categories = ['all', 'Fintech', 'Healthcare', 'HealthTech', 'Concept'];
+  const categories = ['all', 'Fintech', 'EdTech', 'Machine Learning', 'Concept'];
 
   const filteredProjects = PROJECTS.filter((p) => {
     if (filter === 'all') return true;
     if (filter === 'Concept') return p.isConcept;
+    if (filter === 'Machine Learning') return p.category.includes('ML') || p.category.includes('Vision');
     return p.category.toLowerCase().includes(filter.toLowerCase());
   });
 
   return (
-    <section id="work" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#26262B]">
+    <section id="work" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#222226]">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-[#00D9E8] uppercase tracking-widest mb-2">
-            <span>01 / ENGINEERING REPOSITORY</span>
-            <span className="text-[#444]">•</span>
-            <span>VERIFIED WORK</span>
+          <div className="flex items-center gap-2 font-mono text-xs text-[#8E8E93] uppercase tracking-widest mb-2">
+            <span>01 / PROJECT ARCHIVE</span>
+            <span className="text-[#333]">•</span>
+            <span>VERIFIED CODEBASES</span>
           </div>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
-            Selected Systems & Projects
+          <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+            Software Systems & Implementations
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#A6A6A1] max-w-2xl leading-relaxed">
-            Accessible project archive detailing verified architectural contributions, database designs, security remediations, and distributed cloud deployments.
+          <p className="mt-2 text-xs sm:text-sm text-[#8E8E93] max-w-2xl leading-relaxed">
+            Case studies grounded in actual implementation codebases, database schemas, and developer prototypes.
           </p>
         </div>
 
@@ -47,10 +48,10 @@ export const WorkArchiveSection: React.FC<WorkArchiveProps> = ({ onSelectProject
                 sound.playClick();
                 setFilter(cat);
               }}
-              className={`px-3 py-1.5 rounded-lg border transition-all cursor-pointer capitalize ${
+              className={`px-3 py-1.5 rounded-md border text-xs transition-all cursor-pointer capitalize ${
                 filter === cat
-                  ? 'bg-[#222] border-[#00D9E8] text-[#00D9E8] font-semibold'
-                  : 'bg-[#141416] border-[#2A2A30] text-[#888] hover:text-[#CCC]'
+                  ? 'bg-[#1C1C22] border-[#2DD4BF] text-[#2DD4BF] font-medium'
+                  : 'bg-[#141417] border-[#24242A] text-[#777] hover:text-[#CCC]'
               }`}
             >
               {cat}
@@ -60,7 +61,7 @@ export const WorkArchiveSection: React.FC<WorkArchiveProps> = ({ onSelectProject
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredProjects.map((project) => (
           <div
             key={project.id}
@@ -68,90 +69,62 @@ export const WorkArchiveSection: React.FC<WorkArchiveProps> = ({ onSelectProject
               sound.playClick();
               onSelectProject(project);
             }}
-            className="group p-6 sm:p-8 rounded-2xl bg-[#121215] border border-[#24242A] hover:border-[#383844] transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+            className="group p-5 sm:p-6 rounded-xl bg-[#131316] border border-[#222226] hover:border-[#383842] transition-all cursor-pointer flex flex-col justify-between"
           >
-            {/* Ambient Accent Glow */}
-            <div
-              className="absolute -top-12 -right-12 w-36 h-36 rounded-full blur-3xl opacity-15 group-hover:opacity-30 transition-opacity pointer-events-none"
-              style={{ backgroundColor: project.accentColor }}
-            />
-
             <div>
               {/* Header row */}
-              <div className="flex items-center justify-between font-mono text-xs mb-4">
-                <span
-                  className="px-2.5 py-0.5 rounded font-bold"
-                  style={{
-                    backgroundColor: `${project.accentColor}18`,
-                    color: project.accentColor,
-                    border: `1px solid ${project.accentColor}35`,
-                  }}
-                >
+              <div className="flex items-center justify-between font-mono text-xs mb-3">
+                <span className="text-xs font-semibold text-[#8E8E93]">
                   {project.number}
                 </span>
 
                 <div className="flex items-center gap-2">
                   <span
-                    className={`px-2 py-0.5 rounded text-[10px] uppercase font-semibold ${
+                    className={`px-2 py-0.5 rounded text-[10px] uppercase font-medium ${
                       project.isConcept
-                        ? 'bg-purple-950/60 text-purple-300 border border-purple-500/20'
-                        : 'bg-emerald-950/60 text-emerald-300 border border-emerald-500/20'
+                        ? 'bg-amber-950/60 text-amber-300 border border-amber-500/30'
+                        : 'bg-[#1A1A1F] text-[#EDEAE2] border border-[#27272C]'
                     }`}
                   >
                     {project.status}
                   </span>
-                  <span className="text-[#666]">{project.year}</span>
+                  <span className="text-[#666] text-[10px]">{project.year}</span>
                 </div>
               </div>
 
               {/* Title & Tagline */}
-              <h3 className="font-display font-bold text-xl sm:text-2xl text-white group-hover:text-[#00D9E8] transition-colors">
+              <h3 className="font-display font-bold text-lg sm:text-xl text-white group-hover:text-[#2DD4BF] transition-colors">
                 {project.title}
               </h3>
-              <p className="text-xs font-mono text-[#888] mt-1">
+              <p className="text-xs font-mono text-[#8E8E93] mt-1">
                 {project.subtitle}
               </p>
-              <p className="mt-3 text-xs sm:text-sm text-[#B4B4AC] leading-relaxed line-clamp-3">
+              <p className="mt-2.5 text-xs text-[#9E9E99] leading-relaxed line-clamp-3">
                 {project.summary}
               </p>
-
-              {/* Key Metrics or Security highlight */}
-              {project.metricsOrSecurity && project.metricsOrSecurity[0] && (
-                <div className="mt-4 p-3 rounded-xl bg-[#17171C] border border-[#26262E] flex items-center gap-3">
-                  <Shield className="w-4 h-4 text-[#00D9E8] flex-shrink-0" />
-                  <div className="text-xs font-mono">
-                    <span className="text-[#777] uppercase text-[10px] block">
-                      {project.metricsOrSecurity[0].label}
-                    </span>
-                    <span className="text-white font-semibold">
-                      {project.metricsOrSecurity[0].value}
-                    </span>
-                  </div>
-                </div>
-              )}
             </div>
 
-            {/* Tech stack tags & Action */}
-            <div className="mt-6 pt-4 border-t border-[#222] flex flex-wrap items-center justify-between gap-3">
-              <div className="flex flex-wrap gap-1.5">
-                {project.technologies.slice(0, 4).map((tech) => (
+            {/* Tech stack & Action */}
+            <div className="mt-5 pt-3.5 border-t border-[#1C1C22] flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-1">
+                {project.technologies.slice(0, 3).map((tech) => (
                   <span
                     key={tech}
-                    className="px-2 py-0.5 rounded bg-[#18181E] text-[#888] text-[10px] font-mono"
+                    className="px-1.5 py-0.5 rounded bg-[#18181D] text-[#777] text-[10px] font-mono"
                   >
                     {tech}
                   </span>
                 ))}
-                {project.technologies.length > 4 && (
+                {project.technologies.length > 3 && (
                   <span className="text-[10px] font-mono text-[#555] self-center">
-                    +{project.technologies.length - 4} more
+                    +{project.technologies.length - 3}
                   </span>
                 )}
               </div>
 
-              <div className="flex items-center gap-1 text-xs font-mono text-[#00D9E8] group-hover:translate-x-1 transition-transform">
-                <span>CASE STUDY</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-1 text-xs font-mono text-[#8E8E93] group-hover:text-[#2DD4BF] group-hover:translate-x-0.5 transition-all">
+                <span>DETAILS</span>
+                <ArrowUpRight className="w-3 h-3" />
               </div>
             </div>
           </div>

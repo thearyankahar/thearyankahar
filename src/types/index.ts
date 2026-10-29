@@ -4,9 +4,8 @@ export interface ProjectFlowStep {
   description: string;
 }
 
-export interface MetricItem {
+export interface ProjectTechnicalNote {
   label: string;
-  value: string;
   detail: string;
 }
 
@@ -18,51 +17,29 @@ export interface Project {
   tagline: string;
   category: string;
   year: string;
-  status: 'Production Live' | 'Active Microservice' | 'Live Platform' | 'Architecture Concept / Working Prototype';
+  status: 'Production System' | 'Marketing Web Platform' | 'Web Application' | 'Machine Learning Service' | 'Concept & Working Prototype';
   isConcept?: boolean;
   technologies: string[];
-  cloudServices?: string[];
   summary: string;
-  architecturalHighlights: string[];
-  keyFeatures: string[];
-  systemFlow: ProjectFlowStep[];
-  metricsOrSecurity?: MetricItem[];
-  accentColor: string;
-  image?: string;
+  coreModules: string[];
+  engineeringDecisions: string[];
+  systemFlow?: ProjectFlowStep[];
+  technicalNotes?: ProjectTechnicalNote[];
+  accentColor?: string;
   demoUrl?: string;
   githubUrl?: string;
 }
 
 export interface SkillItem {
   name: string;
-  level: 'Production' | 'Advanced' | 'Core' | 'Applied';
-  highlight: string;
-  category: string;
+  area: string;
+  verifiedIn: string;
 }
 
 export interface SkillCategory {
   title: string;
   short: string;
   skills: SkillItem[];
-}
-
-export interface EducationRecord {
-  institution: string;
-  degree: string;
-  period: string;
-  status: string;
-  resultDate: string;
-  cgpa: string;
-  lastSemesterSGPA: string;
-  projectGrade: string;
-  receiptNumber: string;
-  focus: string;
-  courses: string[];
-  documents: {
-    title: string;
-    description: string;
-    imagePath: string;
-  }[];
 }
 
 export interface PersonalInfo {
@@ -84,5 +61,10 @@ export interface PersonalInfo {
     github: string;
     githubDisplay: string;
   };
-  education: EducationRecord;
+  education: {
+    institution: string;
+    degree: string;
+    period: string;
+    location: string;
+  };
 }

@@ -27,19 +27,16 @@ export const Pedestal: React.FC<PedestalProps> = ({
   isSelected = false,
 }) => {
   const [hovered, setHovered] = useState(false);
-  const meshRef = useRef<THREE.Group>(null);
   const iconRef = useRef<THREE.Mesh>(null);
   const ringRef = useRef<THREE.Mesh>(null);
 
-  // Smooth floating and rotation animation
   useFrame((state, delta) => {
     if (iconRef.current) {
-      iconRef.current.rotation.y += delta * 0.8;
-      iconRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 1.5) * 0.15;
+      iconRef.current.rotation.y += delta * 0.6;
+      iconRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 1.2) * 0.1;
     }
     if (ringRef.current) {
-      ringRef.current.rotation.z += delta * 0.5;
-      ringRef.current.rotation.x = Math.PI / 2 + Math.cos(state.clock.elapsedTime) * 0.1;
+      ringRef.current.rotation.z += delta * 0.4;
     }
   });
 
@@ -47,7 +44,6 @@ export const Pedestal: React.FC<PedestalProps> = ({
 
   return (
     <group
-      ref={meshRef}
       position={position}
       onClick={(e) => {
         e.stopPropagation();
@@ -65,114 +61,98 @@ export const Pedestal: React.FC<PedestalProps> = ({
         setHovered(false);
       }}
     >
-      {/* Main Architectural Monolith (Reference B Style dark block) */}
+      {/* Monolithic Dark Architectural Block */}
       <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
         <boxGeometry args={[width, height, depth]} />
         <meshStandardMaterial
-          color={hovered || isSelected ? '#1c1c1f' : '#111113'}
-          roughness={0.25}
-          metalness={0.8}
+          color={hovered || isSelected ? '#1A1A1E' : '#111114'}
+          roughness={0.35}
+          metalness={0.7}
         />
       </mesh>
 
-      {/* Illuminated Neon Top Rim / Pad (Reference B Style) */}
-      <mesh position={[0, height + 0.02, 0]}>
-        <boxGeometry args={[width - 0.1, 0.04, depth - 0.1]} />
+      {/* Restrained Top Emissive Trim */}
+      <mesh position={[0, height + 0.015, 0]}>
+        <boxGeometry args={[width - 0.08, 0.03, depth - 0.08]} />
         <meshStandardMaterial
           color={accentColor}
           emissive={accentColor}
-          emissiveIntensity={hovered || isSelected ? 1.6 : 0.8}
-          roughness={0.1}
-          metalness={0.5}
+          emissiveIntensity={hovered || isSelected ? 0.9 : 0.4}
+          roughness={0.2}
+          metalness={0.6}
         />
       </mesh>
 
-      {/* Fine glowing outline strip along the front bottom */}
-      <mesh position={[0, 0.05, depth / 2 + 0.02]}>
-        <boxGeometry args={[width * 0.85, 0.05, 0.02]} />
-        <meshBasicMaterial color={accentColor} />
-      </mesh>
-
-      {/* Floating 3D Geometric Emblem above pedestal */}
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-        <group position={[0, height + 1.2, 0]}>
-          {/* Central geometric artifact */}
+      {/* Floating 3D Geometric Artifact */}
+      <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.3}>
+        <group position={[0, height + 1.1, 0]}>
           <mesh ref={iconRef}>
-            <octahedronGeometry args={[0.55, 0]} />
+            <octahedronGeometry args={[0.5, 0]} />
             <meshStandardMaterial
               color={accentColor}
               emissive={accentColor}
-              emissiveIntensity={hovered ? 1.8 : 1.0}
-              roughness={0.2}
-              metalness={0.9}
-              wireframe={false}
+              emissiveIntensity={hovered ? 1.0 : 0.5}
+              roughness={0.25}
+              metalness={0.8}
             />
           </mesh>
 
-          {/* Glowing orbital neon ring */}
-          <mesh ref={ringRef} position={[0, 0, 0]}>
-            <torusGeometry args={[0.9, 0.03, 16, 64]} />
+          <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.8, 0.02, 16, 48]} />
             <meshBasicMaterial color={accentColor} />
           </mesh>
 
-          {/* Subtle light emitting from the floating object */}
           <pointLight
             color={accentColor}
-            intensity={hovered || isSelected ? 3.5 : 1.8}
-            distance={4.5}
+            intensity={hovered || isSelected ? 2.0 : 0.8}
+            distance={3.5}
             decay={2}
           />
         </group>
       </Float>
 
-      {/* Front Face Typography (3D Text directly mounted on monolithic face) */}
+      {/* Front Face Text */}
       <group position={[0, height * 0.65, depth / 2 + 0.02]}>
-        {/* Project Number */}
         <Text
-          position={[-width * 0.38, 0.45, 0]}
-          fontSize={0.24}
+          position={[-width * 0.38, 0.4, 0]}
+          fontSize={0.22}
           color={accentColor}
           anchorX="left"
           anchorY="middle"
-          font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_ad06HQHQ.woff"
         >
           {number}
         </Text>
 
-        {/* Project Title */}
         <Text
-          position={[-width * 0.38, 0.15, 0]}
-          fontSize={0.28}
+          position={[-width * 0.38, 0.12, 0]}
+          fontSize={0.26}
           maxWidth={width * 0.8}
-          color="#F2F0E9"
+          color="#EDEAE2"
           anchorX="left"
           anchorY="middle"
-          font="https://fonts.gstatic.com/s/syne/v22/8vIS7w4qzmVysDA-Wdf9h5ODF_2Q.woff"
         >
           {title}
         </Text>
 
-        {/* Subtitle / Discipline */}
         <Text
           position={[-width * 0.38, -0.2, 0]}
-          fontSize={0.16}
+          fontSize={0.15}
           maxWidth={width * 0.8}
-          color="#A6A6A1"
+          color="#8E8E93"
           anchorX="left"
           anchorY="middle"
         >
           {subtitle}
         </Text>
 
-        {/* Action Prompt */}
         <Text
-          position={[-width * 0.38, -0.5, 0]}
-          fontSize={0.14}
-          color={hovered ? accentColor : '#666660'}
+          position={[-width * 0.38, -0.48, 0]}
+          fontSize={0.13}
+          color={hovered ? accentColor : '#555558'}
           anchorX="left"
           anchorY="middle"
         >
-          {hovered ? 'CLICK TO OPEN CASE STUDY ↗' : '[ INSPECT SYSTEM ]'}
+          {hovered ? 'INSPECT CASE STUDY →' : '[ DETAILS ]'}
         </Text>
       </group>
     </group>

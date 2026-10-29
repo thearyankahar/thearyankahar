@@ -12,8 +12,8 @@ export const PlatformStairs: React.FC<PlatformStairsProps> = ({
   start,
   end,
   stepsCount = 6,
-  width = 1.6,
-  accentColor = '#00D9E8',
+  width = 1.4,
+  accentColor = '#2DD4BF',
 }) => {
   const [x1, y1, z1] = start;
   const [x2, y2, z2] = end;
@@ -31,19 +31,19 @@ export const PlatformStairs: React.FC<PlatformStairsProps> = ({
 
     steps.push(
       <group key={i} position={[x, y, z]}>
-        {/* Step Tread (Dark Architectural Slab) */}
+        {/* Step Tread */}
         <mesh castShadow receiveShadow>
           <boxGeometry args={[Math.abs(dx) * 1.05, 0.08, width]} />
           <meshStandardMaterial
-            color="#141417"
-            roughness={0.3}
-            metalness={0.8}
+            color="#141418"
+            roughness={0.4}
+            metalness={0.7}
           />
         </mesh>
 
-        {/* Illuminated Neon Edge on the Step Tread (Reference B Style) */}
+        {/* Subtle Illuminated Edge */}
         <mesh position={[0, 0.045, width / 2]}>
-          <boxGeometry args={[Math.abs(dx) * 1.05, 0.02, 0.03]} />
+          <boxGeometry args={[Math.abs(dx) * 1.05, 0.015, 0.02]} />
           <meshBasicMaterial color={accentColor} />
         </mesh>
       </group>

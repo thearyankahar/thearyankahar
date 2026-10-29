@@ -1,424 +1,378 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, Box, ShieldCheck, Database, Layers, ExternalLink, Sparkles, GraduationCap } from 'lucide-react';
-import { PROJECTS, PERSONAL_INFO } from '../../data/portfolioData';
+import React from 'react';
+import { ArrowUpRight, Box } from 'lucide-react';
+import { PROJECTS } from '../../data/portfolioData';
 import { Project } from '../../types';
 import { sound } from '../../utils/audio';
 
 interface ArtboardCanvasProps {
   onSelectProject: (project: Project) => void;
   onEnter3D: () => void;
-  onOpenEducation: () => void;
   onOpenArchive: () => void;
 }
 
 export const ArtboardCanvas: React.FC<ArtboardCanvasProps> = ({
   onSelectProject,
   onEnter3D,
-  onOpenEducation,
   onOpenArchive,
 }) => {
-  const [hoveredPanel, setHoveredPanel] = useState<string | null>(null);
-
-  const clnmProject = PROJECTS.find((p) => p.id === 'clnm') || PROJECTS[0];
-  const docProject = PROJECTS.find((p) => p.id === 'doctor-appointment') || PROJECTS[1];
-  const medisyncProject = PROJECTS.find((p) => p.id === 'medisync') || PROJECTS[2];
-  const aiCallingProject = PROJECTS.find((p) => p.id === 'ai-loan-calling') || PROJECTS[3];
+  const clnProject = PROJECTS.find((p) => p.id === 'cln') || PROJECTS[0];
+  const dixitProject = PROJECTS.find((p) => p.id === 'dixit-lending') || PROJECTS[1];
+  const curriculumProject = PROJECTS.find((p) => p.id === 'smart-curriculum') || PROJECTS[2];
+  const breedProject = PROJECTS.find((p) => p.id === 'breed-rec') || PROJECTS[3];
+  const aiCallingProject = PROJECTS.find((p) => p.id === 'ai-loan-calling') || PROJECTS[5];
 
   return (
-    <section className="relative w-full min-h-screen bg-[#202020] text-[#F2F0E9] pt-20 pb-16 px-3 sm:px-6 lg:px-8 flex flex-col items-center justify-center film-grain">
+    <section className="relative w-full min-h-screen bg-[#0F0F11] text-[#EDEAE2] pt-20 pb-16 px-3 sm:px-6 lg:px-8 flex flex-col items-center justify-center film-grain">
       {/* Outer Editorial Canvas Frame (Reference A Artboard) */}
-      <div className="w-full max-w-[1440px] bg-[#101010] border border-[#2D2D2D] rounded-xl shadow-[0_25px_70px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-500 relative">
+      <div className="w-full max-w-[1440px] bg-[#141417] border border-[#27272A] rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-300 relative">
         
-        {/* Editorial Top Bar (Reference A Header Structure) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 border-b border-[#2C2C2C] text-[10px] sm:text-[11px] font-mono divide-y md:divide-y-0 md:divide-x divide-[#2C2C2C] bg-[#121212]">
-          {/* Metadata Block 1: Location & Time */}
-          <div className="md:col-span-2 p-3 sm:p-4 flex flex-col justify-between">
-            <span className="text-[#666660] uppercase">Location</span>
-            <div className="mt-1 font-medium text-[#F2F0E9]">
-              PUNE, MAHARASHTRA
-              <div className="text-[#00D9E8] text-[10px]">18.5204° N, 73.8567° E</div>
+        {/* Editorial Top Metadata Strip (Reference A Structure) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 border-b border-[#27272A] text-[10px] sm:text-[11px] font-mono divide-y md:divide-y-0 md:divide-x divide-[#27272A] bg-[#161619]">
+          
+          {/* Metadata Block 1: Location & Coordinates */}
+          <div className="md:col-span-3 p-3 sm:p-4 flex flex-col justify-between">
+            <span className="text-[#666663] uppercase tracking-wider">LOCATION & BASE</span>
+            <div className="mt-1 font-medium text-[#EDEAE2]">
+              PUNE, MAHARASHTRA, INDIA
+              <div className="text-[#8E8E93] text-[10px] mt-0.5">18.5204° N, 73.8567° E</div>
             </div>
           </div>
 
-          {/* Metadata Block 2: Expertise */}
-          <div className="md:col-span-2 p-3 sm:p-4 flex flex-col justify-between">
-            <span className="text-[#666660] uppercase">(MY.EXPERTISE)</span>
-            <div className="mt-1 text-[#A6A6A1] space-y-0.5">
-              <div>FULL-STACK ARCHITECTURE</div>
-              <div>HARDENED APIS & REDIS</div>
-              <div>WEBGL & 3D INTERACTION</div>
+          {/* Metadata Block 2: Professional Disciplines */}
+          <div className="md:col-span-3 p-3 sm:p-4 flex flex-col justify-between">
+            <span className="text-[#666663] uppercase tracking-wider">(MY.EXPERTISE)</span>
+            <div className="mt-1 text-[#9E9E99] space-y-0.5">
+              <div>FULL-STACK WEB DEVELOPMENT</div>
+              <div>RESTFUL APIS & DATABASE DESIGN</div>
+              <div>CREATIVE 3D WEBGL INTERACTION</div>
             </div>
           </div>
 
-          {/* Metadata Block 3: Verification & Education */}
-          <div className="md:col-span-2 p-3 sm:p-4 flex flex-col justify-between">
-            <span className="text-[#666660] uppercase">(VERIFIED.ACADEMIC)</span>
-            <button
-              onClick={() => {
-                sound.playClick();
-                onOpenEducation();
-              }}
-              className="mt-1 text-left group cursor-pointer"
-            >
-              <div className="text-[#F7D447] font-semibold flex items-center gap-1 group-hover:underline">
-                <GraduationCap className="w-3 h-3" />
-                <span>BCA · JSPM UNIV 2026</span>
-              </div>
-              <div className="text-[#888] text-[10px]">Result: PASS (Grade A Capstone)</div>
-            </button>
-          </div>
-
-          {/* Metadata Block 4: Editorial Statement */}
+          {/* Metadata Block 3: Engineering Creed */}
           <div className="md:col-span-4 p-3 sm:p-4 flex flex-col justify-between">
-            <span className="text-[#666660] uppercase">(DISCIPLINE & CREED)</span>
-            <p className="mt-1 text-[#C4C4BC] leading-relaxed text-[11px]">
-              FULL-STACK DEVELOPER SPECIALIZING IN RESILIENT BACKEND MICROSERVICES, HIGH-TRANSACTION FINTECH LEDGERS, AND EXPERIMENTAL 3D DIGITAL CRAFT.
+            <span className="text-[#666663] uppercase tracking-wider">(ENGINEERING CREED)</span>
+            <p className="mt-1 text-[#B0ADA6] leading-relaxed text-[11px]">
+              DEVELOPER PURSUING SYSTEMATIC SOFTWARE ARCHITECTURE: RESILIENT DATA SCHEMAS, MODULAR ROUTING, AND IMMERSIVE DIGITAL EXPERIENCES.
             </p>
           </div>
 
-          {/* Metadata Block 5: Fast Navigation Actions */}
-          <div className="md:col-span-2 p-3 sm:p-4 flex flex-col justify-between items-start md:items-end gap-2 bg-[#141414]">
+          {/* Metadata Block 4: Fast Mode Action */}
+          <div className="md:col-span-2 p-3 sm:p-4 flex flex-col justify-between items-start md:items-end gap-2 bg-[#121215]">
             <button
               onClick={() => {
                 sound.playClick();
                 onEnter3D();
               }}
-              className="w-full py-1.5 px-3 bg-[#00D9E8] text-black font-bold tracking-wider rounded text-[10px] flex items-center justify-center gap-1.5 hover:bg-[#63E6C1] transition-colors cursor-pointer shadow-[0_0_15px_rgba(0,217,232,0.25)]"
+              className="w-full py-1.5 px-3 bg-[#24242A] hover:bg-[#2DD4BF] text-[#EDEAE2] hover:text-black font-semibold tracking-wider rounded text-[10px] flex items-center justify-center gap-1.5 border border-[#38383E] transition-all cursor-pointer"
             >
-              <Box className="w-3 h-3" />
-              <span>EXPLORE 3D SCENE</span>
-              <Sparkles className="w-2.5 h-2.5" />
+              <Box className="w-3 h-3 text-[#2DD4BF] group-hover:text-black" />
+              <span>EXPLORE 3D WORLD</span>
             </button>
 
-            <div className="flex items-center gap-3 text-[10px] text-[#A6A6A1]">
-              <button
-                onClick={() => {
-                  sound.playClick();
-                  onOpenArchive();
-                }}
-                className="hover:text-[#00D9E8] transition-colors cursor-pointer uppercase"
-              >
-                [ ARCHIVE ]
-              </button>
-              <a
-                href="https://github.com/thearyankahar"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[#F2F0E9] transition-colors flex items-center gap-0.5"
-              >
-                <span>GITHUB</span>
-                <ExternalLink className="w-2.5 h-2.5" />
-              </a>
-            </div>
+            <button
+              onClick={() => {
+                sound.playClick();
+                onOpenArchive();
+              }}
+              className="text-[10px] text-[#8E8E93] hover:text-[#EDEAE2] transition-colors cursor-pointer uppercase font-mono tracking-wider"
+            >
+              [ VIEW PROJECT ARCHIVE ]
+            </button>
           </div>
         </div>
 
-        {/* The Asymmetric Editorial Grid (Reference A Collage) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-fr divide-y md:divide-y-0 md:divide-x divide-[#2C2C2C] bg-[#0E0E0E]">
+        {/* The Asymmetric Editorial Grid (Reference A Layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-fr divide-y md:divide-y-0 md:divide-x divide-[#27272A] bg-[#121214]">
           
-          {/* Column Group 1 (Left 4 cols): Split into 2 stacked panels */}
-          <div className="md:col-span-4 flex flex-col divide-y divide-[#2C2C2C]">
+          {/* Column Group 1 (Left 4 cols): Architectural Artwork & Typography */}
+          <div className="md:col-span-4 flex flex-col divide-y divide-[#27272A]">
             
-            {/* Panel 1: Monochrome Scaffolding / Figure with Neon Cyan Hover */}
-            <div
-              onMouseEnter={() => {
-                sound.playHover();
-                setHoveredPanel('hero-figure');
-              }}
-              onMouseLeave={() => setHoveredPanel(null)}
-              className="relative h-64 md:h-72 overflow-hidden group cursor-crosshair bg-[#141414]"
-            >
+            {/* Panel 1: Abstract Scaffolding Artwork (Clearly labeled) */}
+            <div className="relative h-64 md:h-72 overflow-hidden group bg-[#111113]">
               <img
                 src="/assets/architects_scaffolding.jpg"
-                alt="System Architecture Scaffolding"
-                className="w-full h-full object-cover grayscale contrast-125 brightness-90 group-hover:scale-105 group-hover:contrast-150 transition-all duration-700"
+                alt="Architectural structure abstract artwork"
+                className="w-full h-full object-cover grayscale contrast-125 brightness-75 group-hover:scale-105 group-hover:brightness-90 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
               
-              {/* Overlay Metadata */}
-              <div className="absolute top-3 left-3 text-[10px] font-mono text-[#A6A6A1] bg-black/60 px-2 py-0.5 rounded border border-[#333]">
-                FIG. 01 / INFRASTRUCTURE
+              <div className="absolute top-3 left-3 text-[10px] font-mono text-[#8E8E93] bg-black/70 px-2 py-0.5 rounded border border-[#27272A]">
+                ARTBOARD COMPOSITION / 01
               </div>
 
               <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
                 <div>
-                  <div className="font-mono text-[9px] text-[#00D9E8] tracking-widest uppercase">
-                    Zero-Downtime Microservices
+                  <div className="font-mono text-[9px] text-[#8E8E93] tracking-widest uppercase">
+                    Architectural Framework
                   </div>
-                  <div className="font-display font-bold text-lg text-white">
-                    Distributed Scalability
+                  <div className="font-display font-bold text-base sm:text-lg text-[#EDEAE2]">
+                    Structural Precision
                   </div>
                 </div>
-                <div className="text-[#666660] font-mono text-xs">2024–2026</div>
+                <div className="text-[#666663] font-mono text-xs">2024–2026</div>
               </div>
             </div>
 
             {/* Panel 2: Big Cropped Typography Panel (Reference A Signature) */}
-            <div
-              onMouseEnter={() => {
-                sound.playHover();
-                setHoveredPanel('typography');
-              }}
-              onMouseLeave={() => setHoveredPanel(null)}
-              className="p-6 md:p-8 flex flex-col justify-between bg-[#121212] relative overflow-hidden group min-h-[260px]"
-            >
-              <div className="flex items-center justify-between font-mono text-[10px] text-[#666660]">
-                <span>ARCHITECTURAL CORE</span>
-                <span className="text-[#00D9E8] group-hover:tracking-widest transition-all">02 / KAHAR</span>
+            <div className="p-6 md:p-8 flex flex-col justify-between bg-[#141417] relative overflow-hidden group min-h-[260px]">
+              <div className="flex items-center justify-between font-mono text-[10px] text-[#666663]">
+                <span>CORE FOUNDATION</span>
+                <span className="text-[#8E8E93]">02 / KAHAR</span>
               </div>
 
-              {/* Massive Cropped Editorial Text */}
+              {/* Cropped Editorial Display Text */}
               <div className="my-auto py-2">
-                <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tighter text-[#F2F0E9] leading-none select-none">
+                <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tighter text-[#EDEAE2] leading-none select-none">
                   FULL-STACK
                 </div>
-                <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tighter text-transparent stroke-text text-stroke leading-none select-none mt-1 opacity-80"
-                     style={{ WebkitTextStroke: '1px #888' }}>
-                  PRECISION.
+                <div
+                  className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tighter text-transparent stroke-text leading-none select-none mt-1 opacity-70"
+                  style={{ WebkitTextStroke: '1px #666' }}
+                >
+                  SYSTEMS.
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] font-mono text-[#A6A6A1] pt-4 border-t border-[#262626]">
-                <div className="flex items-center gap-1.5 text-xs text-[#E5E5DF]">
-                  <Database className="w-3.5 h-3.5 text-[#00D9E8]" />
-                  <span>PostgreSQL · MySQL · Redis</span>
-                </div>
-                <span className="text-[10px] text-[#666660]">128 CREDITS</span>
+              <div className="flex items-center justify-between text-[11px] font-mono text-[#8E8E93] pt-4 border-t border-[#242428]">
+                <span>Node.js · Python · React · Next.js</span>
+                <span className="text-[10px] text-[#666663]">PUNE, INDIA</span>
               </div>
             </div>
           </div>
 
-          {/* Column Group 2 (Center 5 cols): Featured Interactive Project (CLNM Dixit Lending) */}
-          <div className="md:col-span-5 flex flex-col divide-y divide-[#2C2C2C] bg-[#101010]">
+          {/* Column Group 2 (Center 5 cols): Featured Real Project: CLN Lending Suite */}
+          <div className="md:col-span-5 flex flex-col divide-y divide-[#27272A] bg-[#141417]">
             
-            {/* Featured Hero Project Panel: CLNM */}
+            {/* Featured Project Panel: CLN Lending Suite */}
             <div
               onClick={() => {
                 sound.playClick();
-                onSelectProject(clnmProject);
+                onSelectProject(clnProject);
               }}
-              onMouseEnter={() => {
-                sound.playHover();
-                setHoveredPanel('clnm');
-              }}
-              onMouseLeave={() => setHoveredPanel(null)}
-              className="p-6 md:p-8 flex flex-col justify-between flex-grow cursor-pointer group hover:bg-[#151515] transition-all relative overflow-hidden"
+              className="p-6 md:p-8 flex flex-col justify-between flex-grow cursor-pointer group hover:bg-[#18181C] transition-all relative overflow-hidden"
             >
-              {/* Glowing Accent Corner Indicator */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-[#00D9E8]/10 blur-2xl group-hover:bg-[#00D9E8]/20 transition-all pointer-events-none" />
-              
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-[#00D9E8]/10 text-[#00D9E8] border border-[#00D9E8]/30">
-                    FEATURED CASE STUDY
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-[#1C1C22] text-[#2DD4BF] border border-[#27272A]">
+                    FEATURED SYSTEM
                   </span>
-                  <span className="text-[10px] font-mono text-[#666660]">01 / 04</span>
+                  <span className="text-[10px] font-mono text-[#666663]">01 / 06</span>
                 </div>
 
-                <div className="flex items-center gap-1 text-[11px] font-mono text-[#A6A6A1] group-hover:text-[#00D9E8] transition-colors">
+                <div className="flex items-center gap-1 text-[11px] font-mono text-[#8E8E93] group-hover:text-[#2DD4BF] transition-colors">
                   <span>INSPECT DETAILS</span>
                   <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </div>
 
-              {/* Project Title & Visual Identity */}
+              {/* Title & Authentic Overview */}
               <div className="my-6">
-                <div className="font-mono text-xs text-[#00D9E8] tracking-widest uppercase mb-1">
-                  Fintech / Enterprise Core
+                <div className="font-mono text-xs text-[#8E8E93] tracking-widest uppercase mb-1">
+                  Fintech / Commercial CRM
                 </div>
-                <h3 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#F2F0E9] group-hover:text-white transition-colors">
-                  CLNM — Dixit Lending Suite
+                <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-[#EDEAE2] group-hover:text-white transition-colors">
+                  CLN Lending Suite
                 </h3>
-                <p className="mt-2 text-xs sm:text-sm text-[#A6A6A1] leading-relaxed line-clamp-3">
-                  Production micro-finance engine orchestrating role-based Admin & Field Officer dashboards, encrypted KYC streaming proxy on Cloudflare R2, live attendance, and zero-downtime database migrations.
+                <p className="mt-2 text-xs sm:text-sm text-[#9E9E99] leading-relaxed line-clamp-3">
+                  Full-stack Customer Loan Network Management platform orchestrating role-based Admin & Employee operations, loan origination, S3/R2 document vaulting, and automated WhatsApp notifications.
                 </p>
               </div>
 
-              {/* Visual Showcase (Mockup Display Reference A Style) */}
-              <div className="relative rounded-lg overflow-hidden border border-[#2D2D2D] bg-[#0A0A0A] p-4 group-hover:border-[#00D9E8]/50 transition-colors">
-                <div className="flex items-center justify-between pb-3 border-b border-[#222] font-mono text-[10px] text-[#888]">
+              {/* Authentic Technical Architecture Card */}
+              <div className="rounded-lg border border-[#27272A] bg-[#101013] p-4 group-hover:border-[#383842] transition-colors">
+                <div className="flex items-center justify-between pb-3 border-b border-[#202025] font-mono text-[10px] text-[#777]">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-red-500/80" />
-                    <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
-                    <div className="w-2 h-2 rounded-full bg-green-500/80" />
-                    <span className="ml-2 text-[#AAA]">clnm-core.internal</span>
+                    <span className="w-2 h-2 rounded-full bg-[#2DD4BF]/60" />
+                    <span className="text-[#999]">cln-core-system</span>
                   </div>
-                  <span className="text-[#00D9E8]">VERIFIED PRODUCTION</span>
+                  <span className="text-[#8E8E93]">Commercial CRM</span>
                 </div>
 
-                {/* Key Architecture Metrics Strip */}
-                <div className="grid grid-cols-2 gap-3 pt-3 font-mono">
-                  <div className="p-2.5 rounded bg-[#131313] border border-[#222]">
-                    <div className="text-[10px] text-[#666]">SECURITY AUDIT</div>
-                    <div className="text-xs font-bold text-[#00D9E8] mt-0.5">11 VULNERABILITIES REMEDIATED</div>
+                {/* Verified Technical Characteristics */}
+                <div className="grid grid-cols-2 gap-2.5 pt-3 font-mono text-xs">
+                  <div className="p-2.5 rounded bg-[#16161A] border border-[#222226]">
+                    <div className="text-[10px] text-[#666]">STORAGE ARCHITECTURE</div>
+                    <div className="text-xs font-semibold text-[#EDEAE2] mt-0.5">S3/R2-Compatible Object Vault</div>
                   </div>
-                  <div className="p-2.5 rounded bg-[#131313] border border-[#222]">
-                    <div className="text-[10px] text-[#666]">INJECTIONS SANITIZED</div>
-                    <div className="text-xs font-bold text-[#63E6C1] mt-0.5">21 STORED-XSS FIXED</div>
+                  <div className="p-2.5 rounded bg-[#16161A] border border-[#222226]">
+                    <div className="text-[10px] text-[#666]">DATA ENGINE</div>
+                    <div className="text-xs font-semibold text-[#EDEAE2] mt-0.5">Relational MySQL Schema</div>
                   </div>
                 </div>
 
-                {/* Tech Chips */}
-                <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-[#222]">
-                  {['Node.js', 'Express', 'MySQL', 'Cloudflare R2', 'Aiven', 'JWT'].map((tech) => (
-                    <span key={tech} className="px-2 py-0.5 rounded bg-[#181818] text-[#A6A6A1] text-[10px] font-mono">
-                      {tech}
+                {/* Technologies */}
+                <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-[#202025]">
+                  {['Node.js', 'Express', 'MySQL', 'S3/R2', 'JWT', 'Baileys WhatsApp', 'XLSX'].map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded bg-[#18181E] text-[#8E8E93] text-[10px] font-mono">
+                      {t}
                     </span>
                   ))}
                 </div>
               </div>
 
               {/* Footer row inside panel */}
-              <div className="flex items-center justify-between pt-4 mt-2 font-mono text-[10px] text-[#666660]">
-                <span>STATUS: LIVE PRODUCTION</span>
-                <span className="text-[#00D9E8] group-hover:underline">CLICK TO READ FULL CASE STUDY →</span>
+              <div className="flex items-center justify-between pt-4 mt-2 font-mono text-[10px] text-[#666663]">
+                <span>STATUS: PRODUCTION SYSTEM</span>
+                <span className="text-[#8E8E93] group-hover:text-[#2DD4BF] transition-colors">CLICK TO READ CASE STUDY →</span>
               </div>
             </div>
 
-            {/* Bottom Sub-Panel: Brutalist Concrete & Architecture */}
-            <div className="h-44 overflow-hidden relative group bg-[#121212]">
+            {/* Bottom Sub-Panel: Abstract Stepped Geometry Artwork */}
+            <div className="h-44 overflow-hidden relative group bg-[#111113]">
               <img
                 src="/assets/astronomer_steps.jpg"
-                alt="Architectural Geometry"
-                className="w-full h-full object-cover grayscale contrast-125 brightness-75 group-hover:scale-105 group-hover:brightness-95 transition-all duration-700"
+                alt="Abstract architectural steps"
+                className="w-full h-full object-cover grayscale contrast-125 brightness-75 group-hover:scale-105 group-hover:brightness-90 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[10px]">
-                <span className="text-[#C4C4BC]">FIG. 02 / STEPPED GEOMETRY</span>
-                <span className="text-[#63E6C1]">DISCIPLINE OVER SPEED</span>
+                <span className="text-[#8E8E93]">ARTBOARD COMPOSITION / 02</span>
+                <span className="text-[#666663]">SYSTEMATIC FORM</span>
               </div>
             </div>
           </div>
 
-          {/* Column Group 3 (Right 3 cols): Secondary Projects & Archive Exploration */}
-          <div className="md:col-span-3 flex flex-col divide-y divide-[#2C2C2C] bg-[#121212]">
+          {/* Column Group 3 (Right 3 cols): Real Secondary Projects */}
+          <div className="md:col-span-3 flex flex-col divide-y divide-[#27272A] bg-[#141417]">
             
-            {/* Project 2: Doctor Appointment System */}
+            {/* Project 2: Dixit Lending Solution */}
             <div
               onClick={() => {
                 sound.playClick();
-                onSelectProject(docProject);
+                onSelectProject(dixitProject);
               }}
-              onMouseEnter={() => {
-                sound.playHover();
-                setHoveredPanel('doctor');
-              }}
-              onMouseLeave={() => setHoveredPanel(null)}
-              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#161616] transition-all"
+              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#18181C] transition-all"
             >
               <div>
                 <div className="flex items-center justify-between text-[10px] font-mono mb-2">
-                  <span className="text-[#63E6C1] uppercase font-semibold">02 / Telehealth</span>
-                  <span className="text-[#666]">AWS ECS · REDIS</span>
+                  <span className="text-[#2DD4BF] uppercase font-medium">02 / WEB PLATFORM</span>
+                  <span className="text-[#666]">NEXT.JS · TAILWIND</span>
                 </div>
-                <h4 className="font-display font-bold text-lg text-[#F2F0E9] group-hover:text-[#63E6C1] transition-colors">
-                  Doctor Appointment System
+                <h4 className="font-display font-bold text-base text-[#EDEAE2] group-hover:text-white transition-colors">
+                  Dixit Lending Solution
                 </h4>
-                <p className="text-[11px] text-[#888] mt-1.5 leading-relaxed">
-                  Real-time clinical availability engine with atomic Redis TTL mutex locks preventing double-booking race conditions.
+                <p className="text-[11px] text-[#8E8E93] mt-1.5 leading-relaxed">
+                  Responsive marketing and loan origination web application with interactive client-side EMI calculators.
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#222] flex items-center justify-between font-mono text-[10px] text-[#A6A6A1]">
-                <span>FASTAPI + DJANGO</span>
-                <span className="text-[#63E6C1] group-hover:translate-x-1 transition-transform">VIEW →</span>
+              <div className="mt-4 pt-3 border-t border-[#202025] flex items-center justify-between font-mono text-[10px] text-[#8E8E93]">
+                <span>FINTECH WEB APP</span>
+                <span className="group-hover:text-[#2DD4BF] group-hover:translate-x-1 transition-all">VIEW →</span>
               </div>
             </div>
 
-            {/* Project 3: MediSync */}
+            {/* Project 3: Smart Curriculum Attendance */}
             <div
               onClick={() => {
                 sound.playClick();
-                onSelectProject(medisyncProject);
+                onSelectProject(curriculumProject);
               }}
-              onMouseEnter={() => {
-                sound.playHover();
-                setHoveredPanel('medisync');
-              }}
-              onMouseLeave={() => setHoveredPanel(null)}
-              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#161616] transition-all"
+              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#18181C] transition-all"
             >
               <div>
                 <div className="flex items-center justify-between text-[10px] font-mono mb-2">
-                  <span className="text-[#F7D447] uppercase font-semibold">03 / Applied AI</span>
-                  <span className="text-[#666]">4 LANGUAGES</span>
+                  <span className="text-[#8E8E93] uppercase font-medium">03 / EDTECH</span>
+                  <span className="text-[#666]">REACT · FIREBASE</span>
                 </div>
-                <h4 className="font-display font-bold text-lg text-[#F2F0E9] group-hover:text-[#F7D447] transition-colors">
-                  MediSync Platform
+                <h4 className="font-display font-bold text-base text-[#EDEAE2] group-hover:text-white transition-colors">
+                  Smart Curriculum Attendance
                 </h4>
-                <p className="text-[11px] text-[#888] mt-1.5 leading-relaxed">
-                  Multilingual health SaaS with computer-vision food macro diagnostics, streak matrix, and Prisma ORM ledger.
+                <p className="text-[11px] text-[#8E8E93] mt-1.5 leading-relaxed">
+                  Academic operations platform for managing lecture timetables, faculty assignments, and student attendance logs.
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#222] flex items-center justify-between font-mono text-[10px] text-[#A6A6A1]">
-                <span>REACT 18 · PRISMA</span>
-                <span className="text-[#F7D447] group-hover:translate-x-1 transition-transform">VIEW →</span>
+              <div className="mt-4 pt-3 border-t border-[#202025] flex items-center justify-between font-mono text-[10px] text-[#8E8E93]">
+                <span>FIRESTORE SYNC</span>
+                <span className="group-hover:text-[#2DD4BF] group-hover:translate-x-1 transition-all">VIEW →</span>
               </div>
             </div>
 
-            {/* Project 4: AI Loan Calling Telephony Concept */}
+            {/* Project 4: Breed Recognition */}
+            <div
+              onClick={() => {
+                sound.playClick();
+                onSelectProject(breedProject);
+              }}
+              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#18181C] transition-all"
+            >
+              <div>
+                <div className="flex items-center justify-between text-[10px] font-mono mb-2">
+                  <span className="text-[#E5A93C] uppercase font-medium">04 / COMPUTER VISION</span>
+                  <span className="text-[#666]">FLASK · OPENCV</span>
+                </div>
+                <h4 className="font-display font-bold text-base text-[#EDEAE2] group-hover:text-white transition-colors">
+                  Livestock Breed Recognition
+                </h4>
+                <p className="text-[11px] text-[#8E8E93] mt-1.5 leading-relaxed">
+                  Machine learning service combining neural classification with OpenCV contour measurements for trait guidance.
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-[#202025] flex items-center justify-between font-mono text-[10px] text-[#8E8E93]">
+                <span>ML & OPENCV</span>
+                <span className="group-hover:text-[#E5A93C] group-hover:translate-x-1 transition-all">VIEW →</span>
+              </div>
+            </div>
+
+            {/* Project 6: AI Loan Calling Telephony (Clearly labeled Prototype) */}
             <div
               onClick={() => {
                 sound.playClick();
                 onSelectProject(aiCallingProject);
               }}
-              onMouseEnter={() => {
-                sound.playHover();
-                setHoveredPanel('ai-calling');
-              }}
-              onMouseLeave={() => setHoveredPanel(null)}
-              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#161616] transition-all"
+              className="p-5 flex flex-col justify-between flex-1 cursor-pointer group hover:bg-[#18181C] transition-all"
             >
               <div>
                 <div className="flex items-center justify-between text-[10px] font-mono mb-2">
-                  <span className="text-[#E056FD] uppercase font-semibold">04 / Telephony Spec</span>
-                  <span className="text-[#E056FD]/80">PROTOTYPE</span>
+                  <span className="text-[#E5A93C] uppercase font-medium">06 / PROTOTYPE</span>
+                  <span className="text-[#666]">GSM · REDIS</span>
                 </div>
-                <h4 className="font-display font-bold text-lg text-[#F2F0E9] group-hover:text-[#E056FD] transition-colors">
-                  AI Loan Calling System
+                <h4 className="font-display font-bold text-base text-[#EDEAE2] group-hover:text-white transition-colors">
+                  CLN AI Loan Calling System
                 </h4>
-                <p className="text-[11px] text-[#888] mt-1.5 leading-relaxed">
-                  Automated outbound calling CRM prototype driving USB GSM modem pools with dynamic SIM rotation and conversational AI handoff.
+                <p className="text-[11px] text-[#8E8E93] mt-1.5 leading-relaxed">
+                  Outbound dialing architecture specification and working developer prototype with USB GSM modem AT drivers and voice handoff.
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#222] flex items-center justify-between font-mono text-[10px] text-[#A6A6A1]">
-                <span>GAMMU + OPENAI</span>
-                <span className="text-[#E056FD] group-hover:translate-x-1 transition-transform">VIEW →</span>
+              <div className="mt-4 pt-3 border-t border-[#202025] flex items-center justify-between font-mono text-[10px] text-[#8E8E93]">
+                <span>WORKING PROTOTYPE</span>
+                <span className="group-hover:text-[#E5A93C] group-hover:translate-x-1 transition-all">VIEW →</span>
               </div>
             </div>
 
           </div>
         </div>
 
-        {/* Editorial Bottom Watermark & Instructions Bar (Reference A Style) */}
-        <div className="border-t border-[#2C2C2C] bg-[#0E0E0E] px-4 sm:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[11px]">
+        {/* Editorial Bottom Watermark & Instructions Bar */}
+        <div className="border-t border-[#27272A] bg-[#121214] px-4 sm:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[11px]">
           
-          {/* Oversized Cropped Watermark Logo */}
+          {/* Watermark Logo */}
           <div className="flex items-baseline gap-2">
-            <span className="font-display font-black text-2xl sm:text-3xl tracking-tighter text-[#E5E5DF]">
+            <span className="font-display font-black text-2xl tracking-tighter text-[#EDEAE2]">
               THE ARTBOARD™
             </span>
-            <span className="text-[#666660] text-[10px]">EDITION 2026</span>
+            <span className="text-[#666663] text-[10px]">ARYAN SHYAMLAL KAHAR</span>
           </div>
 
-          {/* Curatorial Explanation Note */}
-          <div className="text-center md:text-left text-[#888] max-w-xl text-[10px] leading-relaxed">
-            THE ARTBOARD SERVES AS A STRUCTURED ENVIRONMENT WHERE REAL PRODUCTION ARCHITECTURES, BACKEND LEDGERS, AND INTERACTIVE 3D RESEARCH ACCUMULATED BY ARYAN KAHAR ARE RIGOROUSLY CATALOGED.
+          {/* Curatorial Note */}
+          <div className="text-center md:text-left text-[#8E8E93] max-w-xl text-[10px] leading-relaxed">
+            CURATED ARCHIVE OF REAL CODEBASES, PRODUCTION FINTECH PLATFORMS, APPLIED MACHINE LEARNING PIPELINES, AND 3D INTERACTION MODELS.
           </div>
 
-          {/* Call to action */}
+          {/* Action Trigger */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => {
                 sound.playClick();
                 onEnter3D();
               }}
-              className="px-4 py-2 bg-[#1A1A1A] hover:bg-[#252525] border border-[#00D9E8]/40 hover:border-[#00D9E8] text-[#00D9E8] rounded font-semibold text-xs transition-all flex items-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(0,217,232,0.15)]"
+              className="px-4 py-2 bg-[#1A1A1E] hover:bg-[#222228] border border-[#27272A] hover:border-[#2DD4BF] text-[#EDEAE2] hover:text-[#2DD4BF] rounded font-medium text-xs transition-all flex items-center gap-2 cursor-pointer"
             >
-              <Box className="w-3.5 h-3.5" />
-              <span>LAUNCH 3D SPATIAL WORLD</span>
+              <Box className="w-3.5 h-3.5 text-[#2DD4BF]" />
+              <span>EXPLORE 3D ENVIRONMENT ↗</span>
             </button>
           </div>
         </div>
